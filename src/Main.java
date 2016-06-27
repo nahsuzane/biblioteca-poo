@@ -4,5 +4,6 @@ public class Main {
 		System.out.println("Hello World2");
 		System.out.println("Mais um teste");
 		System.out.println("Putitrain");
+		System.out.println("1234");
 	}
 }
