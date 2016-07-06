@@ -1,3 +1,5 @@
+package br.ifrn.tads.poo.biblioteca.app;
+import br.ifrn.tads.poo.biblioteca.usuario.Usuario;
 
 public class SistemaBiblioteca {
 

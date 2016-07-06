@@ -1,3 +1,4 @@
+package br.ifrn.tads.poo.biblioteca.usuario;
 
 public class Usuario {
 	private int codUsuario;
