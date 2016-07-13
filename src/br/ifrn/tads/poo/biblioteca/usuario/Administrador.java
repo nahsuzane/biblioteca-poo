@@ -5,4 +5,8 @@ public class Administrador extends Usuario{
 		super(codUsuario, nome, endereco, cpf);
 	}
 	
+	public void cadastroUsuario(int codUsuario, String nome, String endereco, String cpf){
+		Usuario usuario = new Usuario(codUsuario, nome, endereco, cpf);
+		
+	}
 }
