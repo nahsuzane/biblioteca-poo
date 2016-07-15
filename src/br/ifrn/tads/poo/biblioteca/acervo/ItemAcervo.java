@@ -15,6 +15,14 @@ public class ItemAcervo {
 		this.codigoItem=codigoItem;		
 	}
 
+	public Date getDataAluguel() {
+		return dataAluguel;
+	}
+
+	public void setDataAluguel(Date dataAluguel) {
+		this.dataAluguel = dataAluguel;
+	}
+
 	public int getCodigoItem() {
 		return codigoItem;
 	}
