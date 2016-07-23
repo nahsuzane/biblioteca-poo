@@ -9,6 +9,9 @@ public class Biblioteca  {
 	private String nomeBiblioteca;
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	private ArrayList<Administrador> administradores = new ArrayList <Administrador>();
+	private ArrayList<Livro> acervoLivro = new ArrayList<Livro>();
+	private ArrayList<Apostila> acervoApostila = new ArrayList<Apostila>();
+	private ArrayList<Texto> acervoTexto = new ArrayList<Texto>();
 	private ArrayList<ItemAcervo> acervo = new ArrayList<ItemAcervo>();
 	
 	public Biblioteca(String nomeBiblioteca){
@@ -35,18 +38,44 @@ public class Biblioteca  {
 	}
 	
 	public void cadastroLivro(double custo, int codigoItem, String titulo,String autor,String ISBN, Integer edicao, int quantidade){
-		acervo.add(new Livro(custo, codigoItem, titulo, autor, ISBN, edicao, quantidade));
+		acervoLivro.add(new Livro(custo, codigoItem, titulo, autor, ISBN, edicao, quantidade));
 	}
 	
 	public void cadastroApostila(double custo, int codigoItem, String titulo, String autor,int quantidade){
-		acervo.add(new Apostila(custo, codigoItem, titulo, autor,quantidade));
+		acervoApostila.add(new Apostila(custo, codigoItem, titulo, autor,quantidade));
 	}
 	
 	public void cadastroTexto(double custo, int codigoItem, String autor){
-		acervo.add(new Texto(custo, codigoItem, autor));
+		acervoTexto.add(new Texto(custo, codigoItem, autor));
 	}
 	
 	public ArrayList<Administrador> listarAdmins(){
 		return administradores;
+	} 
+	
+	public ArrayList<Livro> listarLivros(){
+		return acervoLivro;
+	}
+	
+	public ArrayList<Apostila> listarApostilas(){
+		return acervoApostila;
+	}
+	
+	public ArrayList<Texto> listarTextos(){
+		return acervoTexto;
+	}
+	
+	public ArrayList<ItemAcervo> listarAcervo(){
+		for (int i = 0; i < acervoLivro.size(); i++) {
+			acervo.add(acervoLivro.get(i));
+		}
+		for (int i = 0; i < acervoApostila.size(); i++) {
+			acervo.add(acervoApostila.get(i));
+		}
+		for (int i = 0; i < acervoTexto.size(); i++) {
+			acervo.add(acervoTexto.get(i));
+		}
+		
+		return acervo;
 	} 
 }
