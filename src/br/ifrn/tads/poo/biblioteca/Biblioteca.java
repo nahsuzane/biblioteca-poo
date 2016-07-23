@@ -22,6 +22,9 @@ public class Biblioteca  {
 		this.nomeBiblioteca = nomeBiblioteca;
 	}
 	
+	public String getNomeB(){
+		return nomeBiblioteca;
+	}
 	public void cadastroUsuario(int codUsuario, String nome, String endereco, String cpf){
 		usuarios.add(new Usuario(codUsuario, nome, endereco, cpf));
 		
@@ -42,4 +45,8 @@ public class Biblioteca  {
 	public void cadastroTexto(double custo, int codigoItem, String autor){
 		acervo.add(new Texto(custo, codigoItem, autor));
 	}
+	
+	public ArrayList<Administrador> listarAdmins(){
+		return administradores;
+	} 
 }

@@ -8,7 +8,7 @@ public class Usuario {
 	
 	public Usuario(int codUsuario, String nome, String endereco, String cpf){
 		if(cpf.length()	!=	11){
-			throw new IllegalArgumentException("CPF	deve	conter	11	dígitos");	
+			throw new IllegalArgumentException("CPF	deve conter	11	dígitos");	
 		}
 			
 		for(int i =	0; i < cpf.length(); i++){	
