@@ -43,9 +43,100 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma função...");
-					System.out.println("7)Cadastrar Item ao Acervo\n8)Funcionalidades Usuario\n9)Funcionalidades Administrador\n0)Sair\n");
+					System.out.println("6)Listar Itens no Acervo\n7)Cadastrar Item ao Acervo\n8)Funcionalidades Usuario\n9)Funcionalidades Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
+					
+		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
+					
+					case 6:
+						System.out.println("1)Listar livros\n2)Listar apostilas\n3)Listar textos\n4)Listas todos\nn*)Cancelar");
+						int op6 = Integer.parseInt(s.nextLine());
+						switch(op6){
+						
+						///// LISTAR LIVROS /////
+						
+						case 1:
+							for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
+								System.out.println(
+									biblioteca.listarLivros().get(i).getCodigoItem() + " : " +
+									biblioteca.listarLivros().get(i).getTitulo() + " : " +
+									biblioteca.listarLivros().get(i).getAutor() + " : Edição-" +
+									biblioteca.listarLivros().get(i).getEdicao() + " : " +
+									biblioteca.listarLivros().get(i).getISBN() + " : " +
+									biblioteca.listarLivros().get(i).getQuantidade() + " : Custo R$" +
+									biblioteca.listarLivros().get(i).getCusto()
+								);
+							}
+							break;
+							
+						///// LISTAR APOSTILAS /////
+						
+						case 2:
+							for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
+								System.out.println(
+									biblioteca.listarApostilas().get(i).getCodigoItem() + " : " +
+									biblioteca.listarApostilas().get(i).getTitulo() + " : " +
+									biblioteca.listarApostilas().get(i).getAutor() + " : " +
+									biblioteca.listarApostilas().get(i).getQuantidade() + " : Custo R$" +
+									biblioteca.listarApostilas().get(i).getCusto()
+								);
+							}
+							break;
+							
+						///// LISTAR APOSTILAS /////
+						
+						case 3:
+							for (int i = 0; i < biblioteca.listarTextos().size(); i++) {
+								System.out.println(
+									biblioteca.listarTextos().get(i).getCodigoItem() + " : " +
+									biblioteca.listarTextos().get(i).getAutor() + " : " +
+									biblioteca.listarTextos().get(i).getCusto()
+								);
+							}
+							break;
+							
+						///// LISTAR TODOS /////
+						
+						case 4:
+							for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
+								System.out.println(
+									biblioteca.listarLivros().get(i).getCodigoItem() + " : " +
+									biblioteca.listarLivros().get(i).getTitulo() + " : " +
+									biblioteca.listarLivros().get(i).getAutor() + " : Edição-" +
+									biblioteca.listarLivros().get(i).getEdicao() + " : " +
+									biblioteca.listarLivros().get(i).getISBN() + " : " +
+									biblioteca.listarLivros().get(i).getQuantidade() + " : Custo R$" +
+									biblioteca.listarLivros().get(i).getCusto()
+								);
+							}
+							
+							for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
+								System.out.println(
+									biblioteca.listarApostilas().get(i).getCodigoItem() + " : " +
+									biblioteca.listarApostilas().get(i).getTitulo() + " : " +
+									biblioteca.listarApostilas().get(i).getAutor() + " : " +
+									biblioteca.listarApostilas().get(i).getQuantidade() + " : Custo R$" +
+									biblioteca.listarApostilas().get(i).getCusto()
+								);
+							}
+							
+							for (int i = 0; i < biblioteca.listarTextos().size(); i++) {
+								System.out.println(
+									biblioteca.listarTextos().get(i).getCodigoItem() + " : " +
+									biblioteca.listarTextos().get(i).getAutor() + " : " +
+									biblioteca.listarTextos().get(i).getCusto()
+								);
+							}
+							break;
+						
+						default:
+							System.out.println("Cancelado\n");
+							break;
+							
+						}
+						break;
+					
 		/////////////////////////FUNCIONALIDADE CADASTRAR ITEM AO ACERVO/////////////////////
 					
 					case 7:
@@ -64,7 +155,7 @@ public class SistemaBiblioteca {
 								for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
 									if(biblioteca.listarAcervo().get(i).getCodigoItem() == codLivro){
 										existir = true;
-										System.out.println("Codigo ja cadastrado em um " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());
+										System.out.println("Codigo ja cadastrado em um(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());
 										i = biblioteca.listarAcervo().size();
 									}
 								}
@@ -88,16 +179,94 @@ public class SistemaBiblioteca {
 									System.out.println("Digite a quantidade a ser adicionada:");
 									int qtdLivro = Integer.parseInt(s.nextLine());
 									if(qtdLivro >= 0){
+										boolean add = false;
 										for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
 											if(biblioteca.listarLivros().get(i).getCodigoItem() == codLivro){
 												biblioteca.listarLivros().get(i).setQuantidade(qtdLivro);
+												i = biblioteca.listarLivros().size();
+												add = true;
 											}
+										}
+										if(!add){
+											System.out.println("Este codigo não pertence a um Livro");
 										}
 									}
 								}			
 								
 								break;
 								
+						///// CADASTAR APOSTILA /////
+								
+							case 2:
+								existir = false;
+								System.out.println("Digite um codigo para a Apostila");
+								int codApostila = Integer.parseInt(s.nextLine());
+								
+								for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+									if(biblioteca.listarAcervo().get(i).getCodigoItem() == codApostila){
+										existir = true;
+										System.out.println("Codigo ja cadastrado em um(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());
+										i = biblioteca.listarAcervo().size();
+									}
+								}
+								
+								if(!existir){
+									System.out.println("Digite o titulo da Apostila");
+									String tituloApostila = s.nextLine();
+									System.out.println("Digite o autor da Apostila");
+									String autorApostila = s.nextLine();
+									System.out.println("Digite o custo do aluguel do Livro");
+									Double custoApostila = Double.parseDouble(s.nextLine());
+									System.out.println("Digite a quantidade de livro");
+									int qtdApostila = Integer.parseInt(s.nextLine());
+									
+									biblioteca.cadastroApostila(custoApostila, codApostila, tituloApostila, autorApostila, qtdApostila);
+								}else{
+									System.out.println("Digite a quantidade a ser adicionada:");
+									int qtdApostila = Integer.parseInt(s.nextLine());
+									if(qtdApostila >= 0){
+										boolean add = false;
+										for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
+											if(biblioteca.listarApostilas().get(i).getCodigoItem() == codApostila){
+												biblioteca.listarApostilas().get(i).setQuantidade(qtdApostila);
+												i = biblioteca.listarApostilas().size();
+												add = true;
+											}
+										}
+										if(!add){
+											System.out.println("Este codigo não pertence a uma apostila");
+										}
+									}
+								}
+								
+								break;
+								
+						///// CADASTAR TEXTO /////
+								
+							case 3:
+								existir = false;
+								System.out.println("Digite um codigo para o Texto");
+								int codTexto = Integer.parseInt(s.nextLine());
+								
+								for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+									if(biblioteca.listarAcervo().get(i).getCodigoItem() == codTexto){
+										existir = true;
+										System.out.println("Codigo ja cadastrado em um(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());
+										i = biblioteca.listarAcervo().size();
+									}
+								}
+								
+								if(!existir){
+									System.out.println("Digite o autor do Texto");
+									String autorTexto = s.nextLine();
+									System.out.println("Digite o custo do aluguel do Texto");
+									Double custoTexto = Double.parseDouble(s.nextLine());
+									
+									biblioteca.cadastroTexto(custoTexto, codTexto, autorTexto);
+								}
+								
+								break;
+		
 						///// CANCELAR /////		
 								
 							default:
