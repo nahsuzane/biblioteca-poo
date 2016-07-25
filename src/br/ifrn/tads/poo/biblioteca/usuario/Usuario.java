@@ -9,6 +9,7 @@ public class Usuario {
 	private String nome;
 	private String endereco;
 	private String cpf;
+	private ArrayList<ItemAcervo> alugadosUser = new ArrayList<ItemAcervo>();
 	
 	public Usuario(int codUsuario, String nome, String endereco, String cpf){
 		if(cpf.length()	!=	11){
@@ -60,7 +61,9 @@ public class Usuario {
 		this.cpf = cpf;
 	}
 	
-	
+	public void alugarUser(ItemAcervo item){
+		alugadosUser.add(item);
+	}
 	
 	
 	

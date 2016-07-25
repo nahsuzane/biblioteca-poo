@@ -50,9 +50,58 @@ public class SistemaBiblioteca {
 		/////////////////////////FUNCIONALIDADE ALUGAR ITENS/////////////////////////////////
 					
 					case 1:
-						System.out.println("Digite o codigo do item");
+						//////////IMCOMPLETO COLOCAR OS NOMES DOS ITEM/USUARIOS////////////////
+						boolean existirCodItem = false;
+						System.out.println("Digite o codigo do item que vai ser alugado");
 						int codItem = Integer.parseInt(s.nextLine());
-						///////////////////INCOMPLETO///////////////
+						
+						for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+							if(biblioteca.listarAcervo().get(i).getCodigoItem() == codItem){
+								existirCodItem = true;
+								System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do livro
+								i = biblioteca.listarAcervo().size();
+							}
+						}
+						
+						if(existirCodItem){
+							boolean existirCodUsuario = false;
+							System.out.println("Digite o codigo do usuario que ira alugar");
+							int codUsuario = Integer.parseInt(s.nextLine());
+							
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								if(biblioteca.listarUsers().get(i).getCodUsuario() == codUsuario){
+									existirCodUsuario = true;
+									System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do usuario
+									i = biblioteca.listarUsers().size();
+								}
+							}
+							
+							if(!existirCodUsuario){
+								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+									if(biblioteca.listarAdmins().get(i).getCodUsuario() == codUsuario){
+										existirCodUsuario = true;
+										System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do usuario
+										i = biblioteca.listarAdmins().size();
+									}
+								}
+							}
+							
+							if(existirCodUsuario){
+								System.out.println("Digite a quantidades de dias que passara alugado");
+								int qtdDiasAlugado = Integer.parseInt(s.nextLine());
+								if(qtdDiasAlugado > 0){
+									biblioteca.alugar(codItem, codUsuario, qtdDiasAlugado);
+								}else{
+									System.out.println("Digite uma quantidade maior que 0");
+								}
+								
+							}else{
+								System.out.println("Não existe usuario com esse codigo");
+							}
+						}else{
+							System.out.println("Não existe itens com esse codigo no acervo");
+						}
+						
 						break;
 					
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////

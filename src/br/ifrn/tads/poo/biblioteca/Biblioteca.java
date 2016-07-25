@@ -1,6 +1,8 @@
 package br.ifrn.tads.poo.biblioteca;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import br.ifrn.tads.poo.biblioteca.acervo.*;
 import br.ifrn.tads.poo.biblioteca.usuario.*;
@@ -13,6 +15,7 @@ public class Biblioteca  {
 	private ArrayList<Apostila> acervoApostila = new ArrayList<Apostila>();
 	private ArrayList<Texto> acervoTexto = new ArrayList<Texto>();
 	private ArrayList<ItemAcervo> acervo = new ArrayList<ItemAcervo>();
+	private ArrayList<ItemAcervo> alugados = new ArrayList<ItemAcervo>();
 	
 	public Biblioteca(String nomeBiblioteca){
 		this.nomeBiblioteca = nomeBiblioteca;
@@ -82,5 +85,21 @@ public class Biblioteca  {
 		
 		return acervo;
 	} 
+	
+	public void alugar(int codItem, int codUsuario, int qtdDiasAlugados){
+		for (int i = 0; i < listarAcervo().size(); i++) {
+			if(listarAcervo().get(i).getCodigoItem() == codItem){
+				alugados.add(new ItemAcervo(listarAcervo().get(i).getCusto(), codItem)); //cria novo objeto para simbolizar o aluguel
+				alugados.get(alugados.size()-1).setDataAluguel(new Date());//add a data do aluguel do item
+				//pega a data de aluguel e calcula a data de devolução;
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(alugados.get(alugados.size()-1).getDataAluguel());
+				cal.add(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + qtdDiasAlugados);
+				alugados.get(alugados.size()-1).setDataDevolucao(cal.getTime());
+				alugados.get(alugados.size()-1).setPago(false);//statos do pagamento
+				
+			}
+		}
+	}
 	
 }
