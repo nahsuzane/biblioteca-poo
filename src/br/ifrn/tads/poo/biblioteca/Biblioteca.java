@@ -53,6 +53,10 @@ public class Biblioteca  {
 		return administradores;
 	} 
 	
+	public ArrayList<Usuario> listarUsers(){
+		return usuarios;
+	} 
+	
 	public ArrayList<Livro> listarLivros(){
 		return acervoLivro;
 	}
@@ -78,4 +82,5 @@ public class Biblioteca  {
 		
 		return acervo;
 	} 
+	
 }

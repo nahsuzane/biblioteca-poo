@@ -1,5 +1,9 @@
 package br.ifrn.tads.poo.biblioteca.usuario;
 
+import java.util.ArrayList;
+
+import br.ifrn.tads.poo.biblioteca.acervo.ItemAcervo;
+
 public class Usuario {
 	private int codUsuario;
 	private String nome;
@@ -55,8 +59,6 @@ public class Usuario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
-	
 	
 	
 	

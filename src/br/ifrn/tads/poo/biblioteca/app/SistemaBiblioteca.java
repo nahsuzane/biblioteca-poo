@@ -43,9 +43,17 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma função...");
-					System.out.println("6)Listar Itens no Acervo\n7)Cadastrar Item ao Acervo\n8)Funcionalidades Usuario\n9)Funcionalidades Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
+					
+		/////////////////////////FUNCIONALIDADE ALUGAR ITENS/////////////////////////////////
+					
+					case 1:
+						System.out.println("Digite o codigo do item");
+						int codItem = Integer.parseInt(s.nextLine());
+						///////////////////INCOMPLETO///////////////
+						break;
 					
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
 					
@@ -137,13 +145,52 @@ public class SistemaBiblioteca {
 						}
 						break;
 					
-		/////////////////////////FUNCIONALIDADE CADASTRAR ITEM AO ACERVO/////////////////////
-					
+		/////////////////////////FUNCIONALIDADE LISTAR/BUSCAR USUARIOS///////////////////////	
+						
 					case 7:
-						System.out.println("1)Cadastrar livro\n2)Cadastar apostila\n3)cadastrar texto\nn*)Cancelar");
-						boolean existir;
+						System.out.println("1)\n2)\n3)Listar Usuarios\nn*)Cancelar");
 						int op7 = Integer.parseInt(s.nextLine());
 						switch(op7){
+						
+						///// LISTAR USUARIOS /////
+						
+						case 3:
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								System.out.println(
+									biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " : " +
+									biblioteca.listarAdmins().get(i).getCodUsuario() + " : " + 
+									biblioteca.listarAdmins().get(i).getNome() + " : " + 
+									biblioteca.listarAdmins().get(i).getCpf() + " : " + 
+									biblioteca.listarAdmins().get(i).getEndereco() 
+								);
+							}
+							
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								System.out.println(
+									biblioteca.listarUsers().get(i).getClass().getSimpleName() + " : " +
+									biblioteca.listarUsers().get(i).getCodUsuario() + " : " + 
+									biblioteca.listarUsers().get(i).getNome() + " : " + 
+									biblioteca.listarUsers().get(i).getCpf() + " : " + 
+									biblioteca.listarUsers().get(i).getEndereco() 
+								);
+							}
+							break;
+							
+						///// CANCELAR /////		
+								
+						default:
+							System.out.println("Cancelado\n");
+							break;
+						}
+						break;
+						
+		/////////////////////////FUNCIONALIDADE CADASTRAR ITEM AO ACERVO/////////////////////
+					
+					case 8:
+						System.out.println("1)Cadastrar livro\n2)Cadastar apostila\n3)cadastrar texto\nn*)Cancelar");
+						boolean existir;
+						int op8 = Integer.parseInt(s.nextLine());
+						switch(op8){
 						
 						///// CADASTAR LIVRO /////
 						
@@ -276,12 +323,12 @@ public class SistemaBiblioteca {
 						}
 						break;
 					
-		/////////////////////////////FUNCIONALIDADES USUARIO////////////////////////	
+		/////////////////////////////FUNCIONALIDADES USUARIOS/ADMINISTRADOR////////////////////////	
 					
-					case 8:
-						System.out.println("3)Cadastrar novo usuario\nn*)Cancelar\n");
-						int op8 = Integer.parseInt(s.nextLine());
-						switch(op8){
+					case 9:
+						System.out.println("3)Cadastrar novo usuario\n4)Cadastrar novo administrador\nn*)Cancelar\n");
+						int op9 = Integer.parseInt(s.nextLine());
+						switch(op9){
 						
 						///// CADASTRAR USUARIO /////
 						
@@ -298,26 +345,10 @@ public class SistemaBiblioteca {
 								biblioteca.cadastroUsuario(codUser, nomeUser, endUser, cpfUser);
 								System.out.println("Novo usuario cadastrado\n");
 								break;
-								
-						///// CANCELAR /////	
-								
-							default:
-								System.out.println("Cancelado\n");
-								break;
-								
-						}
-						break;
-						
-		/////////////////////////////FUNCIONALIDADES ADMINISTRADOR////////////////////////////////		
-						
-					case 9:
-						System.out.println("3)Cadastrar novo administrador\nn*)Cancelar\n");
-						int op9 = Integer.parseInt(s.nextLine());
-						switch(op9){
-						
+							
 						///// CADASTRAR ADMINISTRADOR /////
-						
-							case 3:
+								
+							case 4:
 								System.out.println("Digite um codigo para o Administrador");
 								int codAdm = Integer.parseInt(s.nextLine());
 								System.out.println("Digite o nome do Administrador");
@@ -335,14 +366,14 @@ public class SistemaBiblioteca {
 								System.out.println("Novo administrador cadastrado\n");
 								break;
 								
-							///// CANCELAR /////
+						///// CANCELAR /////	
 								
 							default:
 								System.out.println("Cancelado\n");
 								break;
-			
+								
 						}
-						break;
+						break;						
 						
 		//////////////////////////// FUNCIONALIDADE SAIR //////////////////////////////////////////				
 				
