@@ -86,7 +86,7 @@ public class Biblioteca  {
 		return acervo;
 	} 
 	
-	public void alugar(int codItem, int codUsuario, int qtdDiasAlugados){
+	public void alugar(int codItem, int codUsuario, int qtdDiasAlugados, double valorPago){
 		for (int i = 0; i < listarAcervo().size(); i++) {
 			if(listarAcervo().get(i).getCodigoItem() == codItem){
 				alugados.add(new ItemAcervo(listarAcervo().get(i).getCusto(), codItem)); //cria novo objeto para simbolizar o aluguel

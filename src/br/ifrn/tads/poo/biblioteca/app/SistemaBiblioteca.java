@@ -89,8 +89,17 @@ public class SistemaBiblioteca {
 							if(existirCodUsuario){
 								System.out.println("Digite a quantidades de dias que passara alugado");
 								int qtdDiasAlugado = Integer.parseInt(s.nextLine());
+								
 								if(qtdDiasAlugado > 0){
-									biblioteca.alugar(codItem, codUsuario, qtdDiasAlugado);
+									for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+										if(biblioteca.listarAcervo().get(i).getCodigoItem() == codItem){
+											System.out.println("Custo do aluguel R$" + (qtdDiasAlugado*biblioteca.listarAcervo().get(i).getCusto()));
+											i = biblioteca.listarAcervo().size();
+										}
+									}
+									System.out.println("Digite o valor pago na hora do aluguel");
+									double valorPago = Double.parseDouble(s.nextLine());
+									biblioteca.alugar(codItem, codUsuario, qtdDiasAlugado, valorPago);
 								}else{
 									System.out.println("Digite uma quantidade maior que 0");
 								}
