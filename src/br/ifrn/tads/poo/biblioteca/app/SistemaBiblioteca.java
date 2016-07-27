@@ -376,43 +376,90 @@ public class SistemaBiblioteca {
 					
 					case 9:
 						System.out.println("3)Cadastrar novo usuario\n4)Cadastrar novo administrador\nn*)Cancelar\n");
+						boolean existirUser;
+						boolean existirCPF;
 						int op9 = Integer.parseInt(s.nextLine());
 						switch(op9){
 						
 						///// CADASTRAR USUARIO /////
 						
 							case 3:
+								existirUser = false;
+								existirCPF = false;
 								System.out.println("Digite um codigo para o Usuario");
 								int codUser = Integer.parseInt(s.nextLine());
-								System.out.println("Digite o nome do Usuario");
-								String nomeUser = s.nextLine();
-								System.out.println("Digite o endereço do Usuario");
-								String endUser = s.nextLine();
-								System.out.println("Digite o cpf do Usuario");
-								String cpfUser = s.nextLine();
-							
-								biblioteca.cadastroUsuario(codUser, nomeUser, endUser, cpfUser);
-								System.out.println("Novo usuario cadastrado\n");
+								
+								for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+									if(biblioteca.listarUsers().get(i).getCodUsuario() == codUser){
+										existirUser = true;
+										i = biblioteca.listarUsers().size();
+									}		
+								}
+								
+								if(!existirUser){		
+
+									System.out.println("Digite o cpf do Usuario");
+									String cpfUser = s.nextLine();
+									
+									for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+										if(biblioteca.listarUsers().get(i).getCpf().equals(cpfUser)){
+											existirCPF = true;
+											i = biblioteca.listarUsers().size();
+										}		
+									}
+									if(!existirCPF){
+										System.out.println("Digite o nome do Usuario");
+										String nomeUser = s.nextLine();
+										System.out.println("Digite o endereço do Usuario");
+										String endUser = s.nextLine();
+									
+										biblioteca.cadastroUsuario(codUser, nomeUser, endUser, cpfUser);
+										System.out.println("Novo usuario cadastrado\n");
+									}else{
+										System.out.println("CPF ja pertence a outro usuario");
+									}
+								}else{
+									System.out.println("Codigo ja pertence a outro usuario");
+								}
 								break;
 							
 						///// CADASTRAR ADMINISTRADOR /////
 								
 							case 4:
+								existirUser = false;
+								existirCPF = false;
 								System.out.println("Digite um codigo para o Administrador");
 								int codAdm = Integer.parseInt(s.nextLine());
-								System.out.println("Digite o nome do Administrador");
-								String nomeAdm = s.nextLine();
-								System.out.println("Digite o endereço do Administrador");
-								String endAdm = s.nextLine();
-								System.out.println("Digite o cpf do Administrador");
-								String cpfAdm = s.nextLine();
-								System.out.println("Digite um loguin para o Administrador");
-								String logAdm = s.nextLine();
-								System.out.println("Digite uma senha para o Administrador");
-								String senAdm = s.nextLine();
-							
-								biblioteca.cadastroAdmin(codAdm, nomeAdm, endAdm, cpfAdm, logAdm, senAdm);
-								System.out.println("Novo administrador cadastrado\n");
+								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+									if(biblioteca.listarAdmins().get(i).getCodUsuario() == codAdm){
+										existirUser = true;
+										i = biblioteca.listarAdmins().size();
+									}		
+								}
+								
+								if(!existirUser){		
+									System.out.println("Digite o cpf do Administrador");
+									String cpfAdm = s.nextLine();
+									for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+										if(biblioteca.listarAdmins().get(i).getCpf().equals(cpfAdm)){
+											existirCPF = true;
+											i = biblioteca.listarAdmins().size();
+										}		
+									}
+									if(!existirCPF){
+										System.out.println("Digite o nome do Administrador");
+										String nomeAdm = s.nextLine();
+										System.out.println("Digite o endereço do Administrador");
+										String endAdm = s.nextLine();
+										System.out.println("Digite um loguin para o Administrador");
+										String logAdm = s.nextLine();
+										System.out.println("Digite uma senha para o Administrador");
+										String senAdm = s.nextLine();
+									
+										biblioteca.cadastroAdmin(codAdm, nomeAdm, endAdm, cpfAdm, logAdm, senAdm);
+										System.out.println("Novo administrador cadastrado\n");
+									}
+								}
 								break;
 								
 						///// CANCELAR /////	

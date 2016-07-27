@@ -98,11 +98,31 @@ public class Biblioteca  {
 				alugados.get(alugados.size()-1).setDataDevolucao(cal.getTime());
 				alugados.get(alugados.size()-1).setPago(false);//statos do pagamento
 				
-				//DIMINUIR A QTD DE ITEM
-				//ADD O ITEM NO ARREYLIST ALUGADOS DO USUARIO
-				
+				//Adiciona o item no arreylist alugados do usuario/adimin
+				for (int j = 0; j < administradores.size(); j++) {
+					if(listarAdmins().get(i).getCodUsuario() == codUsuario){
+						listarAdmins().get(i).alugarUser(alugados.get(alugados.size()-1));
+					}
+				}
+				for (int j = 0; j < usuarios.size(); j++) {
+					if(listarUsers().get(i).getCodUsuario() == codUsuario){
+						listarUsers().get(i).alugarUser(alugados.get(alugados.size()-1));
+					}
+				}	
 			}
 		}
+		
+		for (int i = 0; i < listarLivros().size()-1; i++) {
+			if(listarLivros().get(i).getCodigoItem() == codItem){
+				listarLivros().get(i).setQuantidade(-1);
+			}
+		}
+		for (int i = 0; i < listarApostilas().size()-1; i++) {
+			if(listarApostilas().get(i).getCodigoItem() == codItem){
+				listarApostilas().get(i).setQuantidade(-1);
+			}
+		}
+		
 	}
 	
 }
