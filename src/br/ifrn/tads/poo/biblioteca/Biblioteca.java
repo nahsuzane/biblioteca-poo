@@ -91,12 +91,15 @@ public class Biblioteca  {
 			if(listarAcervo().get(i).getCodigoItem() == codItem){
 				alugados.add(new ItemAcervo(listarAcervo().get(i).getCusto(), codItem)); //cria novo objeto para simbolizar o aluguel
 				alugados.get(alugados.size()-1).setDataAluguel(new Date());//add a data do aluguel do item
-				//pega a data de aluguel e calcula a data de devolução;
+				//pega a data de aluguel e calcula a data de devoluÃ§Ã£o;
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(alugados.get(alugados.size()-1).getDataAluguel());
 				cal.add(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + qtdDiasAlugados);
 				alugados.get(alugados.size()-1).setDataDevolucao(cal.getTime());
 				alugados.get(alugados.size()-1).setPago(false);//statos do pagamento
+				
+				//DIMINUIR A QTD DE ITEM
+				//ADD O ITEM NO ARREYLIST ALUGADOS DO USUARIO
 				
 			}
 		}
