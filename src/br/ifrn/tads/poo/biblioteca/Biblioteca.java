@@ -73,6 +73,7 @@ public class Biblioteca  {
 	}
 	
 	public ArrayList<ItemAcervo> listarAcervo(){
+		acervo.clear();
 		for (int i = 0; i < acervoLivro.size(); i++) {
 			acervo.add(acervoLivro.get(i));
 		}
@@ -96,30 +97,39 @@ public class Biblioteca  {
 				cal.setTime(alugados.get(alugados.size()-1).getDataAluguel());
 				cal.add(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + qtdDiasAlugados);
 				alugados.get(alugados.size()-1).setDataDevolucao(cal.getTime());
-				alugados.get(alugados.size()-1).setPago(false);//statos do pagamento
+				//statos do pagamento
+				if ((listarAcervo().get(i).getCusto()*qtdDiasAlugados) >= valorPago){
+					alugados.get(alugados.size()-1).setPago(true);
+				}else{
+					alugados.get(alugados.size()-1).setPago(false);
+					alugados.get(alugados.size()-1).setCusto((listarAcervo().get(i).getCusto()*qtdDiasAlugados) - valorPago);
+				}
+				
 				
 				//Adiciona o item no arreylist alugados do usuario/adimin
 				for (int j = 0; j < administradores.size(); j++) {
-					if(listarAdmins().get(i).getCodUsuario() == codUsuario){
-						listarAdmins().get(i).alugarUser(alugados.get(alugados.size()-1));
+					if(administradores.get(j).getCodUsuario() == codUsuario){
+						administradores.get(j).alugarUser(alugados.get(alugados.size()-1));
 					}
 				}
 				for (int j = 0; j < usuarios.size(); j++) {
-					if(listarUsers().get(i).getCodUsuario() == codUsuario){
-						listarUsers().get(i).alugarUser(alugados.get(alugados.size()-1));
+					if(usuarios.get(j).getCodUsuario() == codUsuario){
+						usuarios.get(j).alugarUser(alugados.get(alugados.size()-1));
 					}
 				}	
 			}
 		}
 		
-		for (int i = 0; i < listarLivros().size()-1; i++) {
-			if(listarLivros().get(i).getCodigoItem() == codItem){
-				listarLivros().get(i).setQuantidade(-1);
+		for (int i = 0; i < acervoLivro.size(); i++) {
+			if(acervoLivro.get(i).getCodigoItem() == codItem){
+				acervoLivro.get(i).setQuantidade((-1));
+				i = acervoLivro.size();
 			}
 		}
-		for (int i = 0; i < listarApostilas().size()-1; i++) {
-			if(listarApostilas().get(i).getCodigoItem() == codItem){
-				listarApostilas().get(i).setQuantidade(-1);
+		for (int i = 0; i < acervoApostila.size(); i++) {
+			if(acervoApostila.get(i).getCodigoItem() == codItem){
+				acervoApostila.get(i).setQuantidade((-1));
+				i = acervoApostila.size();
 			}
 		}
 		

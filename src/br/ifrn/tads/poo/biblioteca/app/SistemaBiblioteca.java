@@ -50,7 +50,7 @@ public class SistemaBiblioteca {
 		/////////////////////////FUNCIONALIDADE ALUGAR ITENS/////////////////////////////////
 					
 					case 1:
-						//////////IMCOMPLETO COLOCAR OS NOMES DOS ITEM/USUARIOS////////////////
+						//////////IMCOMPLETO COLOCAR OS NOMES DOS ITEM////////////////
 						boolean existirCodItem = false;
 						System.out.println("Digite o codigo do item que vai ser alugado");
 						int codItem = Integer.parseInt(s.nextLine());
@@ -71,7 +71,7 @@ public class SistemaBiblioteca {
 							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
 								if(biblioteca.listarUsers().get(i).getCodUsuario() == codUsuario){
 									existirCodUsuario = true;
-									System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do usuario
+									System.out.println("Codigo do(a) " + biblioteca.listarUsers().get(i).getClass().getSimpleName() + biblioteca.listarUsers().get(i).getNome());
 									i = biblioteca.listarUsers().size();
 								}
 							}
@@ -80,7 +80,7 @@ public class SistemaBiblioteca {
 								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
 									if(biblioteca.listarAdmins().get(i).getCodUsuario() == codUsuario){
 										existirCodUsuario = true;
-										System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do usuario
+										System.out.println("Codigo do(a) " + biblioteca.listarAdmins().get(i).getClass().getSimpleName() + biblioteca.listarAdmins().get(i).getNome());
 										i = biblioteca.listarAdmins().size();
 									}
 								}
@@ -320,9 +320,9 @@ public class SistemaBiblioteca {
 									String tituloApostila = s.nextLine();
 									System.out.println("Digite o autor da Apostila");
 									String autorApostila = s.nextLine();
-									System.out.println("Digite o custo do aluguel do Livro");
+									System.out.println("Digite o custo do aluguel da Apostila");
 									Double custoApostila = Double.parseDouble(s.nextLine());
-									System.out.println("Digite a quantidade de livro");
+									System.out.println("Digite a quantidade de Apostilas");
 									int qtdApostila = Integer.parseInt(s.nextLine());
 									
 									biblioteca.cadastroApostila(custoApostila, codApostila, tituloApostila, autorApostila, qtdApostila);
