@@ -5,6 +5,8 @@ import br.ifrn.tads.poo.biblioteca.acervo.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
 
 public class SistemaBiblioteca {
@@ -43,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma função...");
-					System.out.println("1)Alugar Itens\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -58,7 +60,7 @@ public class SistemaBiblioteca {
 						for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
 							if(biblioteca.listarAcervo().get(i).getCodigoItem() == codItem){
 								existirCodItem = true;
-								System.out.println("Codigo do(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do livro
+								System.out.println("Codigo de um(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do livro
 								i = biblioteca.listarAcervo().size();
 							}
 						}
@@ -71,7 +73,7 @@ public class SistemaBiblioteca {
 							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
 								if(biblioteca.listarUsers().get(i).getCodUsuario() == codUsuario){
 									existirCodUsuario = true;
-									System.out.println("Codigo do(a) " + biblioteca.listarUsers().get(i).getClass().getSimpleName() + biblioteca.listarUsers().get(i).getNome());
+									System.out.println("Codigo do(a) " + biblioteca.listarUsers().get(i).getClass().getSimpleName() + " " + biblioteca.listarUsers().get(i).getNome());
 									i = biblioteca.listarUsers().size();
 								}
 							}
@@ -80,7 +82,7 @@ public class SistemaBiblioteca {
 								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
 									if(biblioteca.listarAdmins().get(i).getCodUsuario() == codUsuario){
 										existirCodUsuario = true;
-										System.out.println("Codigo do(a) " + biblioteca.listarAdmins().get(i).getClass().getSimpleName() + biblioteca.listarAdmins().get(i).getNome());
+										System.out.println("Codigo do(a) " + biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " " + biblioteca.listarAdmins().get(i).getNome());
 										i = biblioteca.listarAdmins().size();
 									}
 								}
@@ -100,6 +102,7 @@ public class SistemaBiblioteca {
 									System.out.println("Digite o valor pago na hora do aluguel");
 									double valorPago = Double.parseDouble(s.nextLine());
 									biblioteca.alugar(codItem, codUsuario, qtdDiasAlugado, valorPago);
+									System.out.println("Item alugado");
 								}else{
 									System.out.println("Digite uma quantidade maior que 0");
 								}
@@ -113,6 +116,106 @@ public class SistemaBiblioteca {
 						
 						break;
 					
+		/////////////////////////FUNCIONALIDADE DEVOLVER ITEM ///////////////////////////////
+						
+					case 2:
+						boolean existirCodUsuarioDev = false;
+						System.out.println("Digite o codigo do usuario da devolução");
+						int codUsuarioDev = Integer.parseInt(s.nextLine());
+						
+						for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+							if(biblioteca.listarUsers().get(i).getCodUsuario() == codUsuarioDev){
+								existirCodUsuarioDev = true;
+								System.out.println("Codigo do(a) " + biblioteca.listarUsers().get(i).getClass().getSimpleName() + " " + biblioteca.listarUsers().get(i).getNome());
+								for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++){
+									System.out.println(
+										"Item " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem() +
+										", Data do aluguel " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel() +
+										", Data da Devolução " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()
+									);
+								}
+								System.out.println("Digite o codigo do item em devolução");
+								int codItemDev = Integer.parseInt(s.nextLine());
+								boolean existirCodItemDev = false;
+								for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++){
+									if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem() == codItemDev	){
+										existirCodItemDev = true;
+										biblioteca.listarUsers().get(i).alugadosUsers().get(j).calcMulta();
+										if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getPago() == true){
+											System.out.println("Aluguel pago");
+											System.out.println("Multa de devolução R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
+										}else{
+											System.out.println("Aluguel não pago, falta pagar R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto());
+											System.out.println("Multa de devolução R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
+											System.out.println("Total a pagar R$" + (biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
+										}
+										boolean pago = false;
+										System.out.println("Concluir Devolução? 1-sim, *0-não");
+										int resp = Integer.parseInt(s.nextLine());
+										if(resp == 1){
+											biblioteca.listarUsers().get(i).alugadosUsers().remove(j);
+											System.out.println("Devolução Concluida");
+										}else{
+											System.out.println("Devolução Cancelada");
+										}
+										j = biblioteca.listarUsers().get(i).alugadosUsers().size();
+									}
+								}
+								if(!existirCodItemDev){
+									System.out.println("Item não existe nos alugados desse usuario");
+								}
+								i = biblioteca.listarUsers().size();
+							}
+						}
+						
+						if(!existirCodUsuarioDev){
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								if(biblioteca.listarAdmins().get(i).getCodUsuario() == codUsuarioDev){
+									existirCodUsuarioDev = true;
+									System.out.println("Codigo do(a) " + biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " " + biblioteca.listarUsers().get(i).getNome());
+									for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++){
+										System.out.println(
+											"Item " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem() +
+											", Data do aluguel " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel() +
+											", Data da Devolução " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()
+										);
+									}
+									System.out.println("Digite o codigo do item em devolução");
+									int codItemDev = Integer.parseInt(s.nextLine());
+									boolean existirCodItemDev = false;
+									for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++){
+										if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem() == codItemDev	){
+											existirCodItemDev = true;
+											biblioteca.listarAdmins().get(i).alugadosUsers().get(j).calcMulta();
+											if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getPago() == true){
+												System.out.println("Aluguel pago");
+												System.out.println("Multa de devolução R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
+											}else{
+												System.out.println("Aluguel não pago, falta pagar R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto());
+												System.out.println("Multa de devolução R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
+												System.out.println("Total a pagar R$" + (biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
+											}
+											boolean pago = false;
+											System.out.println("Concluir Devolução? 1-sim, *0-não");
+											int resp = Integer.parseInt(s.nextLine());
+											if(resp == 1){
+												biblioteca.listarAdmins().get(i).alugadosUsers().remove(j);
+												System.out.println("Devolução Concluida");
+											}else{
+												System.out.println("Devolução Cancelada");
+											}
+											j = biblioteca.listarAdmins().get(i).alugadosUsers().size();
+										}
+									}
+									if(!existirCodItemDev){
+										System.out.println("Item não existe nos alugados desse usuario");
+									}
+									i = biblioteca.listarAdmins().size();
+								}
+							}
+						}
+						break;
+						
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
 					
 					case 6:

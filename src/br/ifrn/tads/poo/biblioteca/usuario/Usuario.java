@@ -65,6 +65,9 @@ public class Usuario {
 		alugadosUser.add(item);
 	}
 	
+	public ArrayList<ItemAcervo> alugadosUsers(){
+		return alugadosUser;
+	}
 	
 	
 	

@@ -95,10 +95,10 @@ public class Biblioteca  {
 				//pega a data de aluguel e calcula a data de devolução;
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(alugados.get(alugados.size()-1).getDataAluguel());
-				cal.add(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + qtdDiasAlugados);
+				cal.add(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + (qtdDiasAlugados-1));
 				alugados.get(alugados.size()-1).setDataDevolucao(cal.getTime());
 				//statos do pagamento
-				if ((listarAcervo().get(i).getCusto()*qtdDiasAlugados) >= valorPago){
+				if ((listarAcervo().get(i).getCusto()*qtdDiasAlugados) <= valorPago){
 					alugados.get(alugados.size()-1).setPago(true);
 				}else{
 					alugados.get(alugados.size()-1).setPago(false);
