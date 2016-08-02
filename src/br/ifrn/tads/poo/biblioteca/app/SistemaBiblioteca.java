@@ -680,12 +680,56 @@ public class SistemaBiblioteca {
 		/////////////////////////////FUNCIONALIDADES USUARIOS/ADMINISTRADOR////////////////////////	
 					
 					case 9:
-						System.out.println("3)Cadastrar novo usuario\n4)Cadastrar novo administrador\nn*)Cancelar\n");
+						System.out.println("1)Deletar item do acervo\n2)Deletar usuario\n3)Cadastrar novo usuario\n4)Cadastrar novo administrador\nn*)Cancelar\n");
 						boolean existirUser;
 						boolean existirCPF;
 						int op9 = Integer.parseInt(s.nextLine());
 						switch(op9){
-						
+						///// DELETAR ITEM DO ACERVO////
+							case 1:
+								System.out.println("Digite o código do item a ser deletado");
+								int codItemDell = Integer.parseInt(s.nextLine());
+								boolean existItemDell=false;
+								for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+									if(biblioteca.listarAcervo().get(i).getCodigoItem()==codItemDell){
+										existItemDell=true;
+									}
+								}
+								if (existItemDell){
+									biblioteca.deletarItem(codItemDell);
+									System.out.println("Item Deletado");
+								}else{
+									System.out.println("Item não existe");
+								}
+								break;
+						///// DELETAR USUARIO /////
+							case 2:
+								System.out.println("Digite o codigo do usuario a ser deletado");
+								int codUserDell = Integer.parseInt(s.nextLine());
+								boolean existUserDell=false;
+								boolean existAdminDell=false;
+								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+									if(biblioteca.listarAdmins().get(i).getCodUsuario()==codUserDell){
+										existAdminDell=true;
+									}
+								}
+								for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+									if(biblioteca.listarUsers().get(i).getCodUsuario()==codUserDell){
+										existUserDell=true;
+									}
+								}
+								if (existAdminDell||existUserDell){
+									if (existAdminDell){
+										biblioteca.deletarAdmin(codUserDell);
+									}
+									if (existUserDell){
+										biblioteca.deletarUser(codUserDell);
+									}
+									System.out.println("Usuario/Administrador deletado");
+								}else{
+									System.out.println("Usuario não existe");
+								}
+								break;
 						///// CADASTRAR USUARIO /////
 						
 							case 3:

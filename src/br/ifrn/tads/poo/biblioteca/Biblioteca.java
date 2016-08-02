@@ -181,4 +181,46 @@ public class Biblioteca  {
 				}
 	}
 	
-}
+	public void deletarItem(int codItemDell){
+		for (int i = 0; i < acervo.size(); i++) {
+			if (acervo.get(i).getCodigoItem()==codItemDell){
+				acervo.remove(i);
+			}
+		}
+		for (int i = 0; i < acervoLivro.size(); i++) {
+			if (acervoLivro.get(i).getCodigoItem()==codItemDell){
+				acervoLivro.remove(i);
+			}
+		}
+		for (int i = 0; i < acervoApostila.size(); i++) {
+			if (acervoApostila.get(i).getCodigoItem()==codItemDell){
+				acervoApostila.remove(i);
+			}
+		}
+		for (int i = 0; i < acervoTexto.size(); i++) {
+			if (acervoTexto.get(i).getCodigoItem()==codItemDell){
+				acervoTexto.remove(i);
+			}
+		}
+	}
+	
+	public void deletarAdmin(int codUserDell){
+		if (administradores.size()>1){
+			for (int i = 0; i < administradores.size(); i++) {
+				if (administradores.get(i).getCodUsuario()==codUserDell){
+					administradores.remove(i);
+					
+				}
+			}
+		}
+	}
+	public void deletarUser(int codUserDell){
+		for (int i = 0; i < usuarios.size(); i++) {
+			if (usuarios.get(i).getCodUsuario()==codUserDell){
+				usuarios.remove(i);
+
+			}
+		}
+	}
+} 
+
