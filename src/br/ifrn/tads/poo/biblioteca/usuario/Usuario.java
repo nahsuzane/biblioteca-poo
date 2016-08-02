@@ -65,6 +65,10 @@ public class Usuario {
 		alugadosUser.add(item);
 	}
 	
+	public void devolverItemUser(int posItem){
+		alugadosUser.remove(posItem);
+	}
+	
 	public ArrayList<ItemAcervo> alugadosUsers(){
 		return alugadosUser;
 	}

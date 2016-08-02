@@ -119,7 +119,7 @@ public class Biblioteca  {
 				}	
 			}
 		}
-		
+		//diminuir qtd dos itens no acervo
 		for (int i = 0; i < acervoLivro.size(); i++) {
 			if(acervoLivro.get(i).getCodigoItem() == codItem){
 				acervoLivro.get(i).setQuantidade((-1));
@@ -133,6 +133,52 @@ public class Biblioteca  {
 			}
 		}
 		
+	}
+	
+	public void devolverItem(int codItemDev, int codUsuarioDev){
+		//remover do arraylist alugados do usuario
+		for (int i = 0; i < administradores.size(); i++) {
+			if(administradores.get(i).getCodUsuario() == codUsuarioDev){
+				for (int j = 0; j < administradores.get(i).alugadosUsers().size(); j++) {
+					if(administradores.get(i).alugadosUsers().get(j).getCodigoItem() == codItemDev){
+						administradores.get(i).devolverItemUser(j);
+						j = administradores.get(i).alugadosUsers().size();
+					}
+				}
+				i = administradores.size();
+			}
+		}
+		for (int i = 0; i < usuarios.size(); i++) {
+			if(usuarios.get(i).getCodUsuario() == codUsuarioDev){
+				for (int j = 0; j < usuarios.get(i).alugadosUsers().size(); j++) {
+					if(usuarios.get(i).alugadosUsers().get(j).getCodigoItem() == codItemDev){
+						usuarios.get(i).devolverItemUser(j);
+						j = usuarios.get(i).alugadosUsers().size();
+					}
+				}
+				i = usuarios.size();
+			}
+		}
+		//remover do arreylist alugados da biblioteca
+		for (int i = 0; i < alugados.size(); i++) {
+			if(alugados.get(i).getCodigoItem() == codItemDev){
+				alugados.remove(i);
+				i = alugados.size();
+			}
+		}
+		//aumentar qtd dos itens no acervo
+				for (int i = 0; i < acervoLivro.size(); i++) {
+					if(acervoLivro.get(i).getCodigoItem() == codItemDev){
+						acervoLivro.get(i).setQuantidade((1));
+						i = acervoLivro.size();
+					}
+				}
+				for (int i = 0; i < acervoApostila.size(); i++) {
+					if(acervoApostila.get(i).getCodigoItem() == codItemDev){
+						acervoApostila.get(i).setQuantidade((1));
+						i = acervoApostila.size();
+					}
+				}
 	}
 	
 }

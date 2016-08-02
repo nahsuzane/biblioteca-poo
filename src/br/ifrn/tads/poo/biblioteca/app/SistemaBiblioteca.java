@@ -153,7 +153,7 @@ public class SistemaBiblioteca {
 										System.out.println("Concluir Devolução? 1-sim, *0-não");
 										int resp = Integer.parseInt(s.nextLine());
 										if(resp == 1){
-											biblioteca.listarUsers().get(i).alugadosUsers().remove(j);
+											biblioteca.devolverItem(codItemDev, codUsuarioDev);
 											System.out.println("Devolução Concluida");
 										}else{
 											System.out.println("Devolução Cancelada");
@@ -199,7 +199,7 @@ public class SistemaBiblioteca {
 											System.out.println("Concluir Devolução? 1-sim, *0-não");
 											int resp = Integer.parseInt(s.nextLine());
 											if(resp == 1){
-												biblioteca.listarAdmins().get(i).alugadosUsers().remove(j);
+												biblioteca.devolverItem(codItemDev, codUsuarioDev);
 												System.out.println("Devolução Concluida");
 											}else{
 												System.out.println("Devolução Cancelada");
