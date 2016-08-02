@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma funÃ§Ã£o...");
-					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -294,6 +294,7 @@ public class SistemaBiblioteca {
 								System.out.println("Item não encontrado entre os alugados");
 							}
 							break;
+						
 						/////// BUSCAR POR CÓGDIGO DE USUARIO //////
 						case 2:
 							System.out.println("Digite o código do usuário: ");
@@ -407,6 +408,139 @@ public class SistemaBiblioteca {
 							break;
 						
 						 
+						}
+						break;
+		/////////////////////////FUNCIONALIDADE AUTALIZAR DADOS DO ITEM //////////////////////
+					case 4:
+						System.out.println("1)Atualizar Livro\n2)Atualizar apostila\n3)Atualizar texto\nn*)Cancelar");
+						int op4 = Integer.parseInt(s.nextLine());
+						switch (op4){
+						case 1:
+							System.out.println("Digite o codigo do livro a ser atualizado");
+							int codLivroAtualizar = Integer.parseInt(s.nextLine());
+							boolean existLivroAtualizar = false;
+							for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
+								if(biblioteca.listarLivros().get(i).getCodigoItem()==codLivroAtualizar){
+									existLivroAtualizar=true;
+									System.out.println("1)Atualizar custo\n2)Atualizar titulo\n3)Atualizar autor\n4)Atualizar ISBN\n5)Atualizar edição\n6)Atualizar quantidade\nn*)Cancelar\n");
+									int op41=Integer.parseInt(s.nextLine());
+									switch (op41){
+									case 1:
+										System.out.println("Digite o novo custo");
+										double novoCusto=Double.parseDouble(s.nextLine());
+										biblioteca.listarLivros().get(i).setCusto(novoCusto);
+										break;
+									case 2:
+										System.out.println("Digite o novo titulo");
+										String novoTitulo=s.nextLine();
+										biblioteca.listarLivros().get(i).setTitulo(novoTitulo);
+										break;
+									case 3:
+										System.out.println("Digite o novo autor");
+										String novoAutor=s.nextLine();
+										biblioteca.listarLivros().get(i).setAutor(novoAutor);
+										break;
+									case 4:
+										System.out.println("Digite o novo ISBN");
+										String novoiSBN = s.nextLine();
+										biblioteca.listarLivros().get(i).setISBN(novoiSBN);
+										break;
+									case 5:
+										System.out.println("Digite a nova edição");
+										Integer novaEdicao = Integer.parseInt(s.nextLine());
+										biblioteca.listarLivros().get(i).setEdicao(novaEdicao);
+										break;
+									case 6:
+										System.out.println("Digite a nova quantidade");
+										int novaQuantidade = Integer.parseInt(s.nextLine());
+										biblioteca.listarLivros().get(i).setQuantidade(novaQuantidade);
+										break;
+									default:
+										System.out.println("Cancelado");
+										break;
+										
+									} 
+								}
+							}
+							if(!existLivroAtualizar){
+								System.out.println("Item nao existe");
+							}
+							break;
+						case 2:
+							System.out.println("Digite o codigo da apostila a ser atualizada");
+							int codApostilaAtualizar = Integer.parseInt(s.nextLine());
+							boolean existApostilaAtualizar = false;
+							for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
+								if(biblioteca.listarApostilas().get(i).getCodigoItem()==codApostilaAtualizar){
+									existApostilaAtualizar=true;
+									System.out.println("1)Atualizar custo\n2)Atualizar titulo\n3)Atualizar autor\n4)Atualizar quantidade\nn*)Cancelar\n");
+									int op42=Integer.parseInt(s.nextLine());
+									switch (op42){
+									case 1:
+										System.out.println("Digite o novo custo");
+										double novoCusto=Double.parseDouble(s.nextLine());
+										biblioteca.listarApostilas().get(i).setCusto(novoCusto);
+										break;
+									case 2:
+										System.out.println("Digite o novo titulo");
+										String novoTitulo=s.nextLine();
+										biblioteca.listarApostilas().get(i).setTitulo(novoTitulo);
+										break;
+									case 3:
+										System.out.println("Digite o novo autor");
+										String novoAutor=s.nextLine();
+										biblioteca.listarApostilas().get(i).setAutor(novoAutor);
+										break;
+									case 4:
+										System.out.println("Digite a nova quantidade");
+										int novaQuantidade = Integer.parseInt(s.nextLine());
+										biblioteca.listarApostilas().get(i).setQuantidade(novaQuantidade);
+										break;
+									default:
+										System.out.println("Cancelado");
+										break;
+										
+									} 
+								}
+							}
+							if (!existApostilaAtualizar){
+								System.out.println("Apostila nao existe");
+							}
+							break;
+						case 3:
+							System.out.println("Digite o codigo do texto a ser atualizado");
+							int codTextoAtualizar = Integer.parseInt(s.nextLine());
+							boolean existTextoAtualizar = false;
+							for (int i = 0; i < biblioteca.listarTextos().size(); i++) {
+								if(biblioteca.listarTextos().get(i).getCodigoItem()==codTextoAtualizar){
+									existTextoAtualizar=true;
+									System.out.println("1)Atualizar custo\n2)Atualizar autor\nn*)Cancelar\n");
+									int op43=Integer.parseInt(s.nextLine());
+									switch (op43){
+									case 1:
+										System.out.println("Digite o novo custo");
+										double novoCusto=Double.parseDouble(s.nextLine());
+										biblioteca.listarApostilas().get(i).setCusto(novoCusto);
+										break;
+									case 2:
+										System.out.println("Digite o novo autor");
+										String novoAutor=s.nextLine();
+										biblioteca.listarApostilas().get(i).setAutor(novoAutor);
+										break;
+									default:
+										System.out.println("Cancelado");
+										break;
+										
+									} 
+								}
+							}
+							if (!existTextoAtualizar){
+								System.out.println("Texto nao existe");
+							}
+							break;
+						default:
+							System.out.println("Cancelado");
+							break;
 						}
 						break;
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////

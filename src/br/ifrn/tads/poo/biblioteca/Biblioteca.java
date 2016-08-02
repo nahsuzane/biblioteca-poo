@@ -122,13 +122,13 @@ public class Biblioteca  {
 		//diminuir qtd dos itens no acervo
 		for (int i = 0; i < acervoLivro.size(); i++) {
 			if(acervoLivro.get(i).getCodigoItem() == codItem){
-				acervoLivro.get(i).setQuantidade((-1));
+				acervoLivro.get(i).mudarQuantidade((-1));
 				i = acervoLivro.size();
 			}
 		}
 		for (int i = 0; i < acervoApostila.size(); i++) {
 			if(acervoApostila.get(i).getCodigoItem() == codItem){
-				acervoApostila.get(i).setQuantidade((-1));
+				acervoApostila.get(i).mudarQuantidade((-1));
 				i = acervoApostila.size();
 			}
 		}
@@ -169,13 +169,13 @@ public class Biblioteca  {
 		//aumentar qtd dos itens no acervo
 				for (int i = 0; i < acervoLivro.size(); i++) {
 					if(acervoLivro.get(i).getCodigoItem() == codItemDev){
-						acervoLivro.get(i).setQuantidade((1));
+						acervoLivro.get(i).mudarQuantidade((1));
 						i = acervoLivro.size();
 					}
 				}
 				for (int i = 0; i < acervoApostila.size(); i++) {
 					if(acervoApostila.get(i).getCodigoItem() == codItemDev){
-						acervoApostila.get(i).setQuantidade((1));
+						acervoApostila.get(i).mudarQuantidade((1));
 						i = acervoApostila.size();
 					}
 				}
