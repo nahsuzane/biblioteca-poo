@@ -11,7 +11,6 @@ import java.util.InputMismatchException;
 
 public class SistemaBiblioteca {
 	public static void main(String[] args) {
-		//teste
 		Scanner s = new Scanner(System.in);
 		System.out.println("Sistema biblioteca");
 		System.out.println("Digite o Nome da Biblioteca:");
