@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma fun√ß√£o...");
-					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo\n7)Listar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -543,6 +543,93 @@ public class SistemaBiblioteca {
 							break;
 						}
 						break;
+		/////////////////////////FUNCIONALIDADE ATUALIZAR DADOS USUARIO//////////////////////
+					case 5:
+						System.out.println("1)Atualizar dados do usuario\n2)Atualizar dados administrador\nn*)Cancelar");
+						int op5 = Integer.parseInt(s.nextLine());
+						switch (op5){
+						case 1:
+							System.out.println("Digite o codigo do usuario a ser atualizado");
+							int codUsuarioAtualizar = Integer.parseInt(s.nextLine());
+							boolean existUsuarioAtualizar = false;
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								if(biblioteca.listarUsers().get(i).getCodUsuario()==codUsuarioAtualizar){
+									existUsuarioAtualizar=true;
+									System.out.println("1)Atualizar nome\n2)Atualizar endereÁo\n3)Atualizar cpf\nn*)Cancelar\n");
+									int op51=Integer.parseInt(s.nextLine());
+									switch (op51){
+									case 1:
+										System.out.println("Digite o novo nome");
+										String novoNome=s.nextLine();
+										biblioteca.listarUsers().get(i).setNome(novoNome);
+										break;
+									case 2:
+										System.out.println("Digite o novo endereÁo");
+										String novoEndereco=s.nextLine();
+										biblioteca.listarUsers().get(i).setEndereco(novoEndereco);
+										break;
+									case 3:
+										System.out.println("Digite o novo Cpf");
+										String novoCpf = s.nextLine();
+										biblioteca.listarUsers().get(i).setCpf(novoCpf);
+										break;
+									default:
+										System.out.println("Cancelado");
+										break;
+										
+									} 
+								}
+							}
+							if(!existUsuarioAtualizar){
+								System.out.println("Usuario nao existe");
+							}
+							break;
+						case 2:
+							System.out.println("Digite o codigo do administrador a ser atualizada");
+							int codAdminAtualizar = Integer.parseInt(s.nextLine());
+							boolean existAdminAtualizar = false;
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								if(biblioteca.listarAdmins().get(i).getCodUsuario()==codAdminAtualizar){
+									existAdminAtualizar=true;
+									System.out.println("1)Atualizar nome\n2)Atualizar endereÁo\n3)Atualizar cpf\n4)Atualizar senha para login\nn*)Cancelar\n");
+									int op52=Integer.parseInt(s.nextLine());
+									switch (op52){
+									case 1:
+										System.out.println("Digite o novo nome");
+										String novoNome=s.nextLine();
+										biblioteca.listarAdmins().get(i).setNome(novoNome);
+										break;
+									case 2:
+										System.out.println("Digite o novo endereÁo");
+										String novoEndereco=s.nextLine();
+										biblioteca.listarAdmins().get(i).setEndereco(novoEndereco);
+										break;
+									case 3:
+										System.out.println("Digite o novo cpf");
+										String novoCpf=s.nextLine();
+										biblioteca.listarAdmins().get(i).setCpf(novoCpf);
+										break;
+									case 4:
+										System.out.println("Digite a nova senha");
+										String novaSenha = s.nextLine();
+										biblioteca.listarAdmins().get(i).setSenha(novaSenha);
+										break;
+									default:
+										System.out.println("Cancelado");
+										break;
+										
+									} 
+								}
+							}
+							if (!existAdminAtualizar){
+								System.out.println("Administrador nao existe");
+							}
+							break;
+						default:
+							System.out.println("Cancelado");
+							break;
+						}
+						break;
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
 					
 					case 6:
@@ -633,42 +720,27 @@ public class SistemaBiblioteca {
 						}
 						break;
 					
-		/////////////////////////FUNCIONALIDADE LISTAR/BUSCAR USUARIOS///////////////////////	
+		/////////////////////////FUNCIONALIDADE LISTAR USUARIOS///////////////////////	
 						
 					case 7:
-						System.out.println("1)\n2)\n3)Listar Usuarios\nn*)Cancelar");
-						int op7 = Integer.parseInt(s.nextLine());
-						switch(op7){
-						
-						///// LISTAR USUARIOS /////
-						
-						case 3:
-							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
-								System.out.println(
+						for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+							System.out.println(
 									biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " : " +
 									biblioteca.listarAdmins().get(i).getCodUsuario() + " : " + 
 									biblioteca.listarAdmins().get(i).getNome() + " : " + 
 									biblioteca.listarAdmins().get(i).getCpf() + " : " + 
 									biblioteca.listarAdmins().get(i).getEndereco() 
-								);
-							}
-							
-							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
-								System.out.println(
+							); 
+						}
+
+						for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+							System.out.println(
 									biblioteca.listarUsers().get(i).getClass().getSimpleName() + " : " +
 									biblioteca.listarUsers().get(i).getCodUsuario() + " : " + 
 									biblioteca.listarUsers().get(i).getNome() + " : " + 
 									biblioteca.listarUsers().get(i).getCpf() + " : " + 
 									biblioteca.listarUsers().get(i).getEndereco() 
-								);
-							}
-							break;
-							
-						///// CANCELAR /////		
-								
-						default:
-							System.out.println("Cancelado\n");
-							break;
+							);
 						}
 						break;
 						
