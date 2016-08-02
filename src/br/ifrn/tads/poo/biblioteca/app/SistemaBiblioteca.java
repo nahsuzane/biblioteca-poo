@@ -52,7 +52,6 @@ public class SistemaBiblioteca {
 		/////////////////////////FUNCIONALIDADE ALUGAR ITENS/////////////////////////////////
 					
 					case 1:
-						//////////IMCOMPLETO COLOCAR OS NOMES DOS ITEM////////////////
 						boolean existirCodItem = false;
 						System.out.println("Digite o codigo do item que vai ser alugado");
 						int codItem = Integer.parseInt(s.nextLine());
@@ -63,6 +62,26 @@ public class SistemaBiblioteca {
 								System.out.println("Codigo de um(a) " + biblioteca.listarAcervo().get(i).getClass().getSimpleName());///colocar o nome do livro
 								i = biblioteca.listarAcervo().size();
 							}
+						}
+						
+						if(existirCodItem){
+							for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
+								if (biblioteca.listarLivros().get(i).getCodigoItem() == codItem){
+									if (biblioteca.listarLivros().get(i).getQuantidade() <= 0){
+										existirCodItem = false;
+									}
+								}
+							}							
+						}
+						
+						if(existirCodItem){
+							for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
+								if (biblioteca.listarApostilas().get(i).getCodigoItem() == codItem){
+									if (biblioteca.listarApostilas().get(i).getQuantidade() <= 0){
+										existirCodItem = false;
+									}
+								}
+							}							
 						}
 						
 						if(existirCodItem){
@@ -111,7 +130,7 @@ public class SistemaBiblioteca {
 								System.out.println("Não existe usuario com esse codigo");
 							}
 						}else{
-							System.out.println("Não existe itens com esse codigo no acervo");
+							System.out.println("Não existe itens com esse codigo no acervo ou o item esta em falta");
 						}
 						
 						break;
@@ -149,7 +168,6 @@ public class SistemaBiblioteca {
 											System.out.println("Multa de devolução R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
 											System.out.println("Total a pagar R$" + (biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
 										}
-										boolean pago = false;
 										System.out.println("Concluir Devolução? 1-sim, *0-não");
 										int resp = Integer.parseInt(s.nextLine());
 										if(resp == 1){
@@ -195,7 +213,6 @@ public class SistemaBiblioteca {
 												System.out.println("Multa de devolução R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
 												System.out.println("Total a pagar R$" + (biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
 											}
-											boolean pago = false;
 											System.out.println("Concluir Devolução? 1-sim, *0-não");
 											int resp = Integer.parseInt(s.nextLine());
 											if(resp == 1){
