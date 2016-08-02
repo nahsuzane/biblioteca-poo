@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma funÃ§Ã£o...");
-					System.out.println("1)Alugar Itens\n2)Devolver Item\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n6)Listar Itens no Acervo\n7)Listar/Buscar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -230,9 +230,185 @@ public class SistemaBiblioteca {
 									i = biblioteca.listarAdmins().size();
 								}
 							}
+						} 
+						break;
+		///////////////////////// FUNCIONALIDADE VERIFICAR ITENS EM ALUGUEL//////////////////
+					case 3:
+						System.out.println("1)Buscar por código de item\n2)Buscar por código de usuário\n3)Listar todos\nn*)Cancelar");
+						int op3 = Integer.parseInt(s.nextLine());
+						switch (op3){
+						/////// BUSCAR POR CÓDIGO DE ITEM ////////
+						case 1:
+							System.out.println("Digite o código do item: ");
+							boolean itemAlugado=false; 
+							int codItemB= Integer.parseInt(s.nextLine());
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++) {
+									if (biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()==codItemB){
+										if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getPago()==true){
+											System.out.println(
+													"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Pago : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+													" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+												); 
+										}else{ 
+											System.out.println(
+													"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Devendo : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+													" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+												);
+										}
+										itemAlugado=true;
+									}
+								}	
+							}
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++) {
+									if (biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()==codItemB){
+										if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getPago()==true){
+											System.out.println(
+													"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Pago : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+													" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+												); 
+										}else{
+											System.out.println(
+													"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Devendo : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+													" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+												);
+										}
+										itemAlugado=true;
+									}
+								}	
+							}
+							if (!itemAlugado) {
+								System.out.println("Item não encontrado entre os alugados");
+							}
+							break;
+						/////// BUSCAR POR CÓGDIGO DE USUARIO //////
+						case 2:
+							System.out.println("Digite o código do usuário: ");
+							boolean UserAluguel=false; 
+							int codUsuarioB= Integer.parseInt(s.nextLine());
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								if (biblioteca.listarAdmins().get(i).getCodUsuario()==codUsuarioB){	
+									for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++) {
+										if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getPago()==true){
+											System.out.println(
+													"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Pago : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+													" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+													); 
+										}else{ 
+											System.out.println(
+													"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Devendo : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+													" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+													);
+										}
+									}
+									UserAluguel=true; 
+								}
+							}
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								if (biblioteca.listarUsers().get(i).getCodUsuario()==codUsuarioB){	
+									for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++) {
+										if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getPago()==true){
+											System.out.println(
+													"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Pago : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+													" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+													); 
+										}else{ 
+											System.out.println(
+													"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+													" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+													" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+													" : Devendo : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+													" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+													);
+										}
+									} 
+									UserAluguel=true; 
+								}
+							}
+							
+							if (!UserAluguel) {
+								System.out.println("Usuário não encontrado");
+							}
+							break;
+							
+						/////// LISTAR TODOS ////////
+						case 3: 
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++) {
+									if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getPago()==true){
+										System.out.println(
+												"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+												" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+												" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+												" : Pago : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+												" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+											); 
+									}else{
+										System.out.println(
+												"Código do item "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+												" : Data do aluguel "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel()+
+												" : Data devolução "+biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()+
+												" : Devendo : usuario "+biblioteca.listarAdmins().get(i).getNome()+ 
+												" - " +biblioteca.listarAdmins().get(i).getCodUsuario()
+											);
+									}
+									
+								}
+								
+							}
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++) {
+									if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getPago()==true){
+										System.out.println(
+												"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+												" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+												" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+												" : Pago : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+												" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+											); 
+									}else{
+										System.out.println(
+												"Código do item "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem()+ 
+												" : Data do aluguel "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel()+
+												" : Data devolução "+biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()+
+												" : Devendo : usuario "+biblioteca.listarUsers().get(i).getNome()+ 
+												" - " +biblioteca.listarUsers().get(i).getCodUsuario()
+											); 
+									}
+									
+								}
+								
+							}
+							break; 
+						default:
+							System.out.println("Cancelado");
+							break;
+						
+						 
 						}
 						break;
-						
 		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
 					
 					case 6:
