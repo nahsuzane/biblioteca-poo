@@ -222,5 +222,10 @@ public class Biblioteca  {
 			}
 		}
 	}
+	
+	public void reservarItem(int codItemRes, int codUserRes){
+		
+	}
+	
 } 
 
