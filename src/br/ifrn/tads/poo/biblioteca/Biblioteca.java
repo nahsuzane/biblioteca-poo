@@ -218,7 +218,7 @@ public class Biblioteca  {
 		for (int i = 0; i < usuarios.size(); i++) {
 			if (usuarios.get(i).getCodUsuario()==codUserDell){
 				usuarios.remove(i);
-
+				
 			}
 		}
 	}

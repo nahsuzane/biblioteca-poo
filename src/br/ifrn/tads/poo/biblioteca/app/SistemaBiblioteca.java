@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma função...");
-					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo\n7)Listar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo/Todos Usuarios\n7)Listar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -410,8 +410,15 @@ public class SistemaBiblioteca {
 						 
 						}
 						break;
-		/////////////////////////FUNCIONALIDADE AUTALIZAR DADOS DO ITEM //////////////////////
+						
+		/////////////////////////FUNCIONALIDADE RESERVAR ITEM ////////////////////////////////
+						
 					case 4:
+						
+						break;
+						
+		/////////////////////////FUNCIONALIDADE AUTALIZAR DADOS DO ITEM //////////////////////
+					case 5:
 						System.out.println("1)Atualizar Livro\n2)Atualizar apostila\n3)Atualizar texto\nn*)Cancelar");
 						int op4 = Integer.parseInt(s.nextLine());
 						switch (op4){
@@ -544,7 +551,7 @@ public class SistemaBiblioteca {
 						}
 						break;
 		/////////////////////////FUNCIONALIDADE ATUALIZAR DADOS USUARIO//////////////////////
-					case 5:
+					case 6:
 						System.out.println("1)Atualizar dados do usuario\n2)Atualizar dados administrador\nn*)Cancelar");
 						int op5 = Integer.parseInt(s.nextLine());
 						switch (op5){
@@ -630,10 +637,10 @@ public class SistemaBiblioteca {
 							break;
 						}
 						break;
-		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO///////////////////////
+		/////////////////////////FUNCIONALIDADE LISTAR ITENS NO ACERVO / TODOS OS USUARIOS ///////////////////////
 					
-					case 6:
-						System.out.println("1)Listar livros\n2)Listar apostilas\n3)Listar textos\n4)Listas todos\nn*)Cancelar");
+					case 7:
+						System.out.println("1)Listar livros\n2)Listar apostilas\n3)Listar textos\n4)Listas todos os itens\n5)Listar todos os usuarios\nn*)Cancelar");
 						int op6 = Integer.parseInt(s.nextLine());
 						switch(op6){
 						
@@ -679,7 +686,7 @@ public class SistemaBiblioteca {
 							}
 							break;
 							
-						///// LISTAR TODOS /////
+						///// LISTAR TODOS OS ITENS/////
 						
 						case 4:
 							for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
@@ -713,34 +720,34 @@ public class SistemaBiblioteca {
 							}
 							break;
 						
+						///// LISTAR TODOS OS USUARIOS /////
+							
+						case 5:
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								System.out.println(
+										biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " : " +
+										biblioteca.listarAdmins().get(i).getCodUsuario() + " : " + 
+										biblioteca.listarAdmins().get(i).getNome() + " : " + 
+										biblioteca.listarAdmins().get(i).getCpf() + " : " + 
+										biblioteca.listarAdmins().get(i).getEndereco() 
+								); 
+							}
+
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								System.out.println(
+										biblioteca.listarUsers().get(i).getClass().getSimpleName() + " : " +
+										biblioteca.listarUsers().get(i).getCodUsuario() + " : " + 
+										biblioteca.listarUsers().get(i).getNome() + " : " + 
+										biblioteca.listarUsers().get(i).getCpf() + " : " + 
+										biblioteca.listarUsers().get(i).getEndereco() 
+								);
+							}
+							break;
+						
 						default:
 							System.out.println("Cancelado\n");
 							break;
 							
-						}
-						break;
-					
-		/////////////////////////FUNCIONALIDADE LISTAR USUARIOS///////////////////////	
-						
-					case 7:
-						for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
-							System.out.println(
-									biblioteca.listarAdmins().get(i).getClass().getSimpleName() + " : " +
-									biblioteca.listarAdmins().get(i).getCodUsuario() + " : " + 
-									biblioteca.listarAdmins().get(i).getNome() + " : " + 
-									biblioteca.listarAdmins().get(i).getCpf() + " : " + 
-									biblioteca.listarAdmins().get(i).getEndereco() 
-							); 
-						}
-
-						for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
-							System.out.println(
-									biblioteca.listarUsers().get(i).getClass().getSimpleName() + " : " +
-									biblioteca.listarUsers().get(i).getCodUsuario() + " : " + 
-									biblioteca.listarUsers().get(i).getNome() + " : " + 
-									biblioteca.listarUsers().get(i).getCpf() + " : " + 
-									biblioteca.listarUsers().get(i).getEndereco() 
-							);
 						}
 						break;
 						
