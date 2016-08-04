@@ -10,6 +10,7 @@ public class Usuario {
 	private String endereco;
 	private String cpf;
 	private ArrayList<ItemAcervo> alugadosUser = new ArrayList<ItemAcervo>();
+	private ArrayList<ItemAcervo> reservadosUser = new ArrayList<ItemAcervo>();
 	
 	public Usuario(int codUsuario, String nome, String endereco, String cpf){
 		if(cpf.length()	!=	11){
@@ -70,6 +71,18 @@ public class Usuario {
 	}
 	
 	public ArrayList<ItemAcervo> alugadosUsers(){
+		return alugadosUser;
+	}
+	
+	public void reservadoUser(ItemAcervo item){
+		alugadosUser.add(item);
+	}
+	
+	public void devolverReservadoUser(int posItem){
+		alugadosUser.remove(posItem);
+	}
+	
+	public ArrayList<ItemAcervo> reservadoUsers(){
 		return alugadosUser;
 	}
 	

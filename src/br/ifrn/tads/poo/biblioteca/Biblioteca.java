@@ -16,6 +16,7 @@ public class Biblioteca  {
 	private ArrayList<Texto> acervoTexto = new ArrayList<Texto>();
 	private ArrayList<ItemAcervo> acervo = new ArrayList<ItemAcervo>();
 	private ArrayList<ItemAcervo> alugados = new ArrayList<ItemAcervo>();
+	private ArrayList<ItemAcervo> reservados = new ArrayList<ItemAcervo>();
 	
 	public Biblioteca(String nomeBiblioteca){
 		this.nomeBiblioteca = nomeBiblioteca;
@@ -132,6 +133,12 @@ public class Biblioteca  {
 				i = acervoApostila.size();
 			}
 		}
+		for (int i = 0; i < acervoTexto.size(); i++) {
+			if(acervoTexto.get(i).getCodigoItem() == codItem){
+				acervoTexto.get(i).mudarQuantidade((-1));
+				i = acervoTexto.size();
+			}
+		}
 		
 	}
 	
@@ -177,6 +184,12 @@ public class Biblioteca  {
 					if(acervoApostila.get(i).getCodigoItem() == codItemDev){
 						acervoApostila.get(i).mudarQuantidade((1));
 						i = acervoApostila.size();
+					}
+				}
+				for (int i = 0; i < acervoTexto.size(); i++) {
+					if(acervoTexto.get(i).getCodigoItem() == codItemDev){
+						acervoTexto.get(i).mudarQuantidade((1));
+						i = acervoTexto.size();
 					}
 				}
 	}
