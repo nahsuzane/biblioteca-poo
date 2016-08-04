@@ -86,11 +86,4 @@ public class Usuario {
 		return alugadosUser;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 }
