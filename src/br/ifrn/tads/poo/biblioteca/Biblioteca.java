@@ -237,9 +237,56 @@ public class Biblioteca  {
 	}
 	
 	public void reservarItem(int codItemRes, int codUserRes){
+		reservados.add(new ItemAcervo(codUserRes, codItemRes));
+		reservados.get(reservados.size()-1).setDataAluguel(new Date());
+		
+		for (int j = 0; j < administradores.size(); j++) {
+			if(administradores.get(j).getCodUsuario() == codUserRes){
+				administradores.get(j).reservadoUser(reservados.get(reservados.size()-1));
+			}
+		}
+		for (int j = 0; j < usuarios.size(); j++) {
+			if(usuarios.get(j).getCodUsuario() == codUserRes){
+				usuarios.get(j).reservadoUser(reservados.get(reservados.size()-1));
+			}
+		}		
+	}
+	
+	public void removerReserva(int codItemRes, int codUserRes){
+		for (int i = 0; i < reservados.size(); i++) {
+			if(reservados.get(i).getCodigoItem() == codItemRes && reservados.get(i).getCusto() == codUserRes){
+				reservados.remove(i);
+				i = reservados.size();
+			}
+		}
+		for (int i = 0; i < administradores.size(); i++) {
+			if(administradores.get(i).getCodUsuario() == codUserRes){
+				for (int j = 0; j < administradores.get(i).reservadoUsers().size(); j++) {
+					if(codItemRes == administradores.get(i).reservadoUsers().get(j).getCodigoItem() && administradores.get(i).reservadoUsers().get(j).getCusto() == codUserRes){
+						administradores.get(i).devolverReservadoUser(j);
+						j = administradores.get(i).reservadoUsers().size();
+					}
+				}
+				i = administradores.size();
+			}
+		}	
+		for (int i = 0; i < usuarios.size(); i++) {
+			if(usuarios.get(i).getCodUsuario() == codUserRes){
+				for (int j = 0; j < usuarios.get(i).reservadoUsers().size(); j++) {
+					if(codItemRes == usuarios.get(i).reservadoUsers().get(j).getCodigoItem() && usuarios.get(i).reservadoUsers().get(j).getCusto() == codUserRes){
+						usuarios.get(i).devolverReservadoUser(j);
+						j = usuarios.get(i).reservadoUsers().size();
+					}
+				}
+				i = usuarios.size();
+			}
+		}	
 		
 	}
 	
+	public ArrayList<ItemAcervo> listarReservados(){
+		return reservados;
+	}
 	
 } 
 

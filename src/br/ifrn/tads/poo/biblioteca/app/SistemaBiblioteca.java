@@ -70,6 +70,15 @@ public class SistemaBiblioteca {
 									if (biblioteca.listarLivros().get(i).getQuantidade() <= 0){
 										existirCodItem = false;
 									}
+									int qtdRes = 0;
+									for (int j = 0; j < biblioteca.listarReservados().size(); j++) {
+										if (codItem == biblioteca.listarReservados().get(j).getCodigoItem()){
+											qtdRes++;
+										}
+									}
+									if (biblioteca.listarLivros().get(i).getQuantidade() <= qtdRes){
+										existirCodItem = false;
+									}
 								}
 							}							
 						}
@@ -78,6 +87,34 @@ public class SistemaBiblioteca {
 							for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
 								if (biblioteca.listarApostilas().get(i).getCodigoItem() == codItem){
 									if (biblioteca.listarApostilas().get(i).getQuantidade() <= 0){
+										existirCodItem = false;
+									}
+									int qtdRes = 0;
+									for (int j = 0; j < biblioteca.listarReservados().size(); j++) {
+										if (codItem == biblioteca.listarReservados().get(j).getCodigoItem()){
+											qtdRes++;
+										}
+									}
+									if (biblioteca.listarApostilas().get(i).getQuantidade() <= qtdRes){
+										existirCodItem = false;
+									}
+								}
+							}							
+						}
+						
+						if(existirCodItem){
+							for (int i = 0; i < biblioteca.listarTextos().size(); i++) {
+								if (biblioteca.listarTextos().get(i).getCodigoItem() == codItem){
+									if (biblioteca.listarTextos().get(i).getQuantidade() <= 0){
+										existirCodItem = false;
+									}
+									int qtdRes = 0;
+									for (int j = 0; j < biblioteca.listarReservados().size(); j++) {
+										if (codItem == biblioteca.listarReservados().get(j).getCodigoItem()){
+											qtdRes++;
+										}
+									}
+									if (biblioteca.listarTextos().get(i).getQuantidade() <= qtdRes){
 										existirCodItem = false;
 									}
 								}
@@ -130,7 +167,7 @@ public class SistemaBiblioteca {
 								System.out.println("NÃ£o existe usuario com esse codigo");
 							}
 						}else{
-							System.out.println("NÃ£o existe itens com esse codigo no acervo ou o item esta em falta");
+							System.out.println("NÃ£o existe itens com esse codigo no acervo, o item esta em falta ou o item esta reservado");
 						}
 						
 						break;
@@ -414,14 +451,136 @@ public class SistemaBiblioteca {
 		/////////////////////////FUNCIONALIDADE RESERVAR ITEM ////////////////////////////////
 						
 					case 4:
+						System.out.println("1)Reservar Item\n2)Retirar Item da Reserva\n3)Listar Itens Reservados\nn*)Cancelar");
+						int op4 = Integer.parseInt(s.nextLine());
+						switch (op4){
+						case 1:
+							System.out.println("Digite o codigo do item a ser reservado");
+							int codItemRes=Integer.parseInt(s.nextLine());
+							boolean existItemRes = false;
+							for (int i = 0; i < biblioteca.listarAcervo().size(); i++) {
+								if(biblioteca.listarAcervo().get(i).getCodigoItem()==codItemRes){
+									existItemRes = true;
+									i = biblioteca.listarAcervo().size();
+								}else{
+									System.out.println("Item não existe");
+								}
+							}
+							if(existItemRes){
+								System.out.println("Digite o codigo do usuario da reserva");
+								int codUserRes=Integer.parseInt(s.nextLine());							
+								boolean existUserRes = false;
+								for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+									if(biblioteca.listarAdmins().get(i).getCodUsuario() == codUserRes){
+										existUserRes = true;
+										biblioteca.reservarItem(codItemRes, codUserRes);
+										i = biblioteca.listarAdmins().size();
+									}
+								}
+								if(!existUserRes){
+									for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+										if(biblioteca.listarUsers().get(i).getCodUsuario() == codUserRes){
+											existUserRes = true;
+											biblioteca.reservarItem(codItemRes, codUserRes);
+											i = biblioteca.listarUsers().size();
+										}
+									}
+								}
+								if(!existUserRes){
+									System.out.println("Usuario não existe");
+								}
+							}
+							break;
 						
+						case 2:
+							System.out.println("Digite o codigo do usuario que ira ter removido o item da reserva");
+							int codUserTirRes=Integer.parseInt(s.nextLine());
+							boolean existUserTirRes = false;
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								if(biblioteca.listarAdmins().get(i).getCodUsuario()==codUserTirRes){
+									existUserTirRes = true;
+									for (int j = 0; j < biblioteca.listarAdmins().get(i).reservadoUsers().size(); j++) {
+										System.out.println(
+											"Item " + biblioteca.listarAdmins().get(i).reservadoUsers().get(j).getCodigoItem() + 
+											" reservado no dia " + biblioteca.listarAdmins().get(i).reservadoUsers().get(j).getDataAluguel()
+										);
+									}
+									System.out.println("Digite o codigo do Item para remover reserva da reserva");
+									int codItemTirRes=Integer.parseInt(s.nextLine());							
+									boolean existItemTirRes = false;
+									for (int j = 0; j < biblioteca.listarAdmins().get(i).reservadoUsers().size(); j++) {
+										if(biblioteca.listarAdmins().get(i).reservadoUsers().get(j).getCodigoItem() == codItemTirRes){
+											existItemTirRes = true;
+											biblioteca.removerReserva(codItemTirRes, codUserTirRes);
+											j = biblioteca.listarAdmins().size();
+										}
+									}
+									i = biblioteca.listarAdmins().size();
+								}
+							}
+							if(!existUserTirRes){
+								for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+									if(biblioteca.listarUsers().get(i).getCodUsuario()==codUserTirRes){
+										existUserTirRes = true;
+										for (int j = 0; j < biblioteca.listarUsers().get(i).reservadoUsers().size(); j++) {
+											System.out.println(
+												"Item " + biblioteca.listarUsers().get(i).reservadoUsers().get(j).getCodigoItem() + 
+												" reservado no dia " + biblioteca.listarUsers().get(i).reservadoUsers().get(j).getDataAluguel()
+											);
+										}
+										System.out.println("Digite o codigo do Item para remover reserva da reserva");
+										int codItemTirRes=Integer.parseInt(s.nextLine());							
+										boolean existItemTirRes = false;
+										for (int j = 0; j < biblioteca.listarUsers().get(i).reservadoUsers().size(); j++) {
+											if(biblioteca.listarUsers().get(i).reservadoUsers().get(j).getCodigoItem() == codItemTirRes){
+												existItemTirRes = true;
+												biblioteca.removerReserva(codItemTirRes, codUserTirRes);
+												j = biblioteca.listarUsers().size();
+											}
+										}
+										if(!existItemTirRes){
+											System.out.println("Item não existe entre os reservados");
+										}
+										i = biblioteca.listarUsers().size();
+									}
+								}
+							}
+							if(!existUserTirRes){
+								System.out.println("Usuario não existe");
+							}
+							
+							break;
+						case 3:
+							for (int i = 0; i < biblioteca.listarAdmins().size(); i++) {
+								for (int j = 0; j < biblioteca.listarAdmins().get(i).reservadoUsers().size(); j++) {
+									System.out.println(
+										"Reservado dia " + biblioteca.listarAdmins().get(i).reservadoUsers().get(j).getDataAluguel() +
+										" : Item " + biblioteca.listarAdmins().get(i).reservadoUsers().get(j).getCodigoItem() +
+										" : Usuario " + biblioteca.listarAdmins().get(i).getNome() + ", " + biblioteca.listarAdmins().get(i).getCodUsuario()
+									);
+								}
+							}
+							for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
+								for (int j = 0; j < biblioteca.listarUsers().get(i).reservadoUsers().size(); j++) {
+									System.out.println(
+										"Reservado dia " + biblioteca.listarUsers().get(i).reservadoUsers().get(j).getDataAluguel() +
+										" : Item " + biblioteca.listarUsers().get(i).reservadoUsers().get(j).getCodigoItem() +
+										" : Usuario " + biblioteca.listarUsers().get(i).getNome() + ", " + biblioteca.listarUsers().get(i).getCodUsuario()
+									);
+								}
+							}
+							break;
+						default:
+							System.out.println("Cancelado");
+							break;
+						}
 						break;
 						
 		/////////////////////////FUNCIONALIDADE AUTALIZAR DADOS DO ITEM //////////////////////
 					case 5:
 						System.out.println("1)Atualizar Livro\n2)Atualizar apostila\n3)Atualizar texto\nn*)Cancelar");
-						int op4 = Integer.parseInt(s.nextLine());
-						switch (op4){
+						int op5 = Integer.parseInt(s.nextLine());
+						switch (op5){
 						case 1:
 							System.out.println("Digite o codigo do livro a ser atualizado");
 							int codLivroAtualizar = Integer.parseInt(s.nextLine());
@@ -430,8 +589,8 @@ public class SistemaBiblioteca {
 								if(biblioteca.listarLivros().get(i).getCodigoItem()==codLivroAtualizar){
 									existLivroAtualizar=true;
 									System.out.println("1)Atualizar custo\n2)Atualizar titulo\n3)Atualizar autor\n4)Atualizar ISBN\n5)Atualizar edição\n6)Atualizar quantidade\nn*)Cancelar\n");
-									int op41=Integer.parseInt(s.nextLine());
-									switch (op41){
+									int op51=Integer.parseInt(s.nextLine());
+									switch (op51){
 									case 1:
 										System.out.println("Digite o novo custo");
 										double novoCusto=Double.parseDouble(s.nextLine());
@@ -481,8 +640,8 @@ public class SistemaBiblioteca {
 								if(biblioteca.listarApostilas().get(i).getCodigoItem()==codApostilaAtualizar){
 									existApostilaAtualizar=true;
 									System.out.println("1)Atualizar custo\n2)Atualizar titulo\n3)Atualizar autor\n4)Atualizar quantidade\nn*)Cancelar\n");
-									int op42=Integer.parseInt(s.nextLine());
-									switch (op42){
+									int op52=Integer.parseInt(s.nextLine());
+									switch (op52){
 									case 1:
 										System.out.println("Digite o novo custo");
 										double novoCusto=Double.parseDouble(s.nextLine());
@@ -522,8 +681,8 @@ public class SistemaBiblioteca {
 								if(biblioteca.listarTextos().get(i).getCodigoItem()==codTextoAtualizar){
 									existTextoAtualizar=true;
 									System.out.println("1)Atualizar custo\n2)Atualizar autor\nn*)Cancelar\n");
-									int op43=Integer.parseInt(s.nextLine());
-									switch (op43){
+									int op53=Integer.parseInt(s.nextLine());
+									switch (op53){
 									case 1:
 										System.out.println("Digite o novo custo");
 										double novoCusto=Double.parseDouble(s.nextLine());
@@ -553,8 +712,8 @@ public class SistemaBiblioteca {
 		/////////////////////////FUNCIONALIDADE ATUALIZAR DADOS USUARIO//////////////////////
 					case 6:
 						System.out.println("1)Atualizar dados do usuario\n2)Atualizar dados administrador\nn*)Cancelar");
-						int op5 = Integer.parseInt(s.nextLine());
-						switch (op5){
+						int op6 = Integer.parseInt(s.nextLine());
+						switch (op6){
 						case 1:
 							System.out.println("Digite o codigo do usuario a ser atualizado");
 							int codUsuarioAtualizar = Integer.parseInt(s.nextLine());
@@ -563,8 +722,8 @@ public class SistemaBiblioteca {
 								if(biblioteca.listarUsers().get(i).getCodUsuario()==codUsuarioAtualizar){
 									existUsuarioAtualizar=true;
 									System.out.println("1)Atualizar nome\n2)Atualizar endereço\n3)Atualizar cpf\nn*)Cancelar\n");
-									int op51=Integer.parseInt(s.nextLine());
-									switch (op51){
+									int op61=Integer.parseInt(s.nextLine());
+									switch (op61){
 									case 1:
 										System.out.println("Digite o novo nome");
 										String novoNome=s.nextLine();
@@ -599,8 +758,8 @@ public class SistemaBiblioteca {
 								if(biblioteca.listarAdmins().get(i).getCodUsuario()==codAdminAtualizar){
 									existAdminAtualizar=true;
 									System.out.println("1)Atualizar nome\n2)Atualizar endereço\n3)Atualizar cpf\n4)Atualizar senha para login\nn*)Cancelar\n");
-									int op52=Integer.parseInt(s.nextLine());
-									switch (op52){
+									int op62=Integer.parseInt(s.nextLine());
+									switch (op62){
 									case 1:
 										System.out.println("Digite o novo nome");
 										String novoNome=s.nextLine();
@@ -641,8 +800,8 @@ public class SistemaBiblioteca {
 					
 					case 7:
 						System.out.println("1)Listar livros\n2)Listar apostilas\n3)Listar textos\n4)Listas todos os itens\n5)Listar todos os usuarios\nn*)Cancelar");
-						int op6 = Integer.parseInt(s.nextLine());
-						switch(op6){
+						int op7 = Integer.parseInt(s.nextLine());
+						switch(op7){
 						
 						///// LISTAR LIVROS /////
 						
