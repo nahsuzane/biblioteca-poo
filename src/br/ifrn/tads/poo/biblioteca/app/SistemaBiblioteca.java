@@ -45,7 +45,7 @@ public class SistemaBiblioteca {
 			do{
 				try{
 					System.out.println("Escolha uma função...");
-					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo/Todos Usuarios\n7)Listar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
+					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Reservas para Itens\n5)Atualizar dados de item\n6)Atualizar dados de usuario\n7)Listar Itens no Acervo/Todos Usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
 					
@@ -958,7 +958,7 @@ public class SistemaBiblioteca {
 										boolean add = false;
 										for (int i = 0; i < biblioteca.listarLivros().size(); i++) {
 											if(biblioteca.listarLivros().get(i).getCodigoItem() == codLivro){
-												biblioteca.listarLivros().get(i).setQuantidade(qtdLivro);
+												biblioteca.listarLivros().get(i).mudarQuantidade(qtdLivro);
 												i = biblioteca.listarLivros().size();
 												add = true;
 											}
@@ -1004,7 +1004,7 @@ public class SistemaBiblioteca {
 										boolean add = false;
 										for (int i = 0; i < biblioteca.listarApostilas().size(); i++) {
 											if(biblioteca.listarApostilas().get(i).getCodigoItem() == codApostila){
-												biblioteca.listarApostilas().get(i).setQuantidade(qtdApostila);
+												biblioteca.listarApostilas().get(i).mudarQuantidade(qtdApostila);
 												i = biblioteca.listarApostilas().size();
 												add = true;
 											}
@@ -1173,7 +1173,7 @@ public class SistemaBiblioteca {
 									if(!existirCPF){
 										System.out.println("Digite o nome do Administrador");
 										String nomeAdm = s.nextLine();
-										System.out.println("Digite o endereÃ§o do Administrador");
+										System.out.println("Digite o endereço do Administrador");
 										String endAdm = s.nextLine();
 										System.out.println("Digite um loguin para o Administrador");
 										String logAdm = s.nextLine();
