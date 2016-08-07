@@ -20,10 +20,10 @@ public class SistemaBiblioteca {
 		boolean sistema = true;
 		while(sistema){
 			
-		//////////////////////////////LOGUIN NO SISTEMA DA BIBLIOTECA /////////////////////////////
+		//////////////////////////////LOGIN NO SISTEMA DA BIBLIOTECA /////////////////////////////
 			boolean conectar = false;
 			while(conectar == false){
-				System.out.println("Digite o Loguin:");
+				System.out.println("Digite o Login:");
 				String log = s.nextLine();
 				System.out.println("Digite a Senha:");
 				String sen = s.nextLine();
