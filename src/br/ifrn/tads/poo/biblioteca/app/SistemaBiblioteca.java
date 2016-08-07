@@ -515,6 +515,9 @@ public class SistemaBiblioteca {
 											j = biblioteca.listarAdmins().size();
 										}
 									}
+									if(!existItemTirRes){
+										System.out.println("Item não existe entre os reservados");
+									}
 									i = biblioteca.listarAdmins().size();
 								}
 							}

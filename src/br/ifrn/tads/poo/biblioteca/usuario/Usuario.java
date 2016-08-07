@@ -75,15 +75,15 @@ public class Usuario {
 	}
 	
 	public void reservadoUser(ItemAcervo item){
-		alugadosUser.add(item);
+		reservadosUser.add(item);
 	}
 	
 	public void devolverReservadoUser(int posItem){
-		alugadosUser.remove(posItem);
+		reservadosUser.remove(posItem);
 	}
 	
 	public ArrayList<ItemAcervo> reservadoUsers(){
-		return alugadosUser;
+		return reservadosUser;
 	}
 	
 }
