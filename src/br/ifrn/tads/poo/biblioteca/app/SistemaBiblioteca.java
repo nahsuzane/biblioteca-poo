@@ -44,7 +44,7 @@ public class SistemaBiblioteca {
 			boolean executar=true;
 			do{
 				try{
-					System.out.println("Escolha uma funÃ§Ã£o...");
+					System.out.println("Escolha uma função...");
 					System.out.println("1)Alugar Itens\n2)Devolver Item\n3)Verificar itens em aluguel\n4)Atualizar dados de item\n5)Atualizar dados de usuario\n6)Listar Itens no Acervo/Todos Usuarios\n7)Listar usuarios\n8)Cadastrar Item ao Acervo\n9)Funcionalidades Usuarios/Administrador\n0)Sair\n");
 					int op0 = Integer.parseInt(s.nextLine());
 					switch(op0){
@@ -164,10 +164,10 @@ public class SistemaBiblioteca {
 								}
 								
 							}else{
-								System.out.println("NÃ£o existe usuario com esse codigo");
+								System.out.println("Não existe usuario com esse codigo");
 							}
 						}else{
-							System.out.println("NÃ£o existe itens com esse codigo no acervo, o item esta em falta ou o item esta reservado");
+							System.out.println("Não existe itens com esse codigo no acervo, o item esta em falta ou o item esta reservado");
 						}
 						
 						break;
@@ -176,7 +176,7 @@ public class SistemaBiblioteca {
 						
 					case 2:
 						boolean existirCodUsuarioDev = false;
-						System.out.println("Digite o codigo do usuario da devoluÃ§Ã£o");
+						System.out.println("Digite o codigo do usuario da devolução");
 						int codUsuarioDev = Integer.parseInt(s.nextLine());
 						
 						for (int i = 0; i < biblioteca.listarUsers().size(); i++) {
@@ -187,10 +187,10 @@ public class SistemaBiblioteca {
 									System.out.println(
 										"Item " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCodigoItem() +
 										", Data do aluguel " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataAluguel() +
-										", Data da DevoluÃ§Ã£o " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()
+										", Data da Devolução " + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getDataDevolucao()
 									);
 								}
-								System.out.println("Digite o codigo do item em devoluÃ§Ã£o");
+								System.out.println("Digite o codigo do item em devolução");
 								int codItemDev = Integer.parseInt(s.nextLine());
 								boolean existirCodItemDev = false;
 								for (int j = 0; j < biblioteca.listarUsers().get(i).alugadosUsers().size(); j++){
@@ -199,25 +199,25 @@ public class SistemaBiblioteca {
 										biblioteca.listarUsers().get(i).alugadosUsers().get(j).calcMulta();
 										if(biblioteca.listarUsers().get(i).alugadosUsers().get(j).getPago() == true){
 											System.out.println("Aluguel pago");
-											System.out.println("Multa de devoluÃ§Ã£o R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
+											System.out.println("Multa de devolução R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
 										}else{
-											System.out.println("Aluguel nÃ£o pago, falta pagar R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto());
-											System.out.println("Multa de devoluÃ§Ã£o R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
+											System.out.println("Aluguel não pago, falta pagar R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto());
+											System.out.println("Multa de devolução R$" + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta());
 											System.out.println("Total a pagar R$" + (biblioteca.listarUsers().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
 										}
-										System.out.println("Concluir DevoluÃ§Ã£o? 1-sim, *0-nÃ£o");
+										System.out.println("Concluir Devolução? 1-sim, *0-não");
 										int resp = Integer.parseInt(s.nextLine());
 										if(resp == 1){
 											biblioteca.devolverItem(codItemDev, codUsuarioDev);
-											System.out.println("DevoluÃ§Ã£o Concluida");
+											System.out.println("Devolução Concluida");
 										}else{
-											System.out.println("DevoluÃ§Ã£o Cancelada");
+											System.out.println("Devolução Cancelada");
 										}
 										j = biblioteca.listarUsers().get(i).alugadosUsers().size();
 									}
 								}
 								if(!existirCodItemDev){
-									System.out.println("Item nÃ£o existe nos alugados desse usuario");
+									System.out.println("Item não existe nos alugados desse usuario");
 								}
 								i = biblioteca.listarUsers().size();
 							}
@@ -232,10 +232,10 @@ public class SistemaBiblioteca {
 										System.out.println(
 											"Item " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCodigoItem() +
 											", Data do aluguel " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataAluguel() +
-											", Data da DevoluÃ§Ã£o " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()
+											", Data da Devolução " + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getDataDevolucao()
 										);
 									}
-									System.out.println("Digite o codigo do item em devoluÃ§Ã£o");
+									System.out.println("Digite o codigo do item em devolução");
 									int codItemDev = Integer.parseInt(s.nextLine());
 									boolean existirCodItemDev = false;
 									for (int j = 0; j < biblioteca.listarAdmins().get(i).alugadosUsers().size(); j++){
@@ -244,25 +244,25 @@ public class SistemaBiblioteca {
 											biblioteca.listarAdmins().get(i).alugadosUsers().get(j).calcMulta();
 											if(biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getPago() == true){
 												System.out.println("Aluguel pago");
-												System.out.println("Multa de devoluÃ§Ã£o R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
+												System.out.println("Multa de devolução R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
 											}else{
-												System.out.println("Aluguel nÃ£o pago, falta pagar R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto());
-												System.out.println("Multa de devoluÃ§Ã£o R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
+												System.out.println("Aluguel não pago, falta pagar R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto());
+												System.out.println("Multa de devolução R$" + biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getMulta());
 												System.out.println("Total a pagar R$" + (biblioteca.listarAdmins().get(i).alugadosUsers().get(j).getCusto() + biblioteca.listarUsers().get(i).alugadosUsers().get(j).getMulta()));
 											}
-											System.out.println("Concluir DevoluÃ§Ã£o? 1-sim, *0-nÃ£o");
+											System.out.println("Concluir Devolução? 1-sim, *0-não");
 											int resp = Integer.parseInt(s.nextLine());
 											if(resp == 1){
 												biblioteca.devolverItem(codItemDev, codUsuarioDev);
-												System.out.println("DevoluÃ§Ã£o Concluida");
+												System.out.println("Devolução Concluida");
 											}else{
-												System.out.println("DevoluÃ§Ã£o Cancelada");
+												System.out.println("Devolução Cancelada");
 											}
 											j = biblioteca.listarAdmins().get(i).alugadosUsers().size();
 										}
 									}
 									if(!existirCodItemDev){
-										System.out.println("Item nÃ£o existe nos alugados desse usuario");
+										System.out.println("Item não existe nos alugados desse usuario");
 									}
 									i = biblioteca.listarAdmins().size();
 								}
@@ -813,7 +813,7 @@ public class SistemaBiblioteca {
 								System.out.println(
 									biblioteca.listarLivros().get(i).getCodigoItem() + " : " +
 									biblioteca.listarLivros().get(i).getTitulo() + " : " +
-									biblioteca.listarLivros().get(i).getAutor() + " : EdiÃ§Ã£o-" +
+									biblioteca.listarLivros().get(i).getAutor() + " : Edição-" +
 									biblioteca.listarLivros().get(i).getEdicao() + " : " +
 									biblioteca.listarLivros().get(i).getISBN() + " : " +
 									biblioteca.listarLivros().get(i).getQuantidade() + " : Custo R$" +
@@ -855,7 +855,7 @@ public class SistemaBiblioteca {
 								System.out.println(
 									biblioteca.listarLivros().get(i).getCodigoItem() + " : " +
 									biblioteca.listarLivros().get(i).getTitulo() + " : " +
-									biblioteca.listarLivros().get(i).getAutor() + " : EdiÃ§Ã£o-" +
+									biblioteca.listarLivros().get(i).getAutor() + " : Edição-" +
 									biblioteca.listarLivros().get(i).getEdicao() + " : " +
 									biblioteca.listarLivros().get(i).getISBN() + " : " +
 									biblioteca.listarLivros().get(i).getQuantidade() + " : Custo R$" +
@@ -941,7 +941,7 @@ public class SistemaBiblioteca {
 									String tituloLivro = s.nextLine();
 									System.out.println("Digite o autor do Livro");
 									String autorLivro = s.nextLine();
-									System.out.println("Digite a ediÃ§Ã£o do Livro");
+									System.out.println("Digite a edição do Livro");
 									Integer edicaoLivro = Integer.parseInt(s.nextLine());
 									System.out.println("Digite ao ISBN do Livro");
 									String ISBNLivro = s.nextLine();
@@ -964,7 +964,7 @@ public class SistemaBiblioteca {
 											}
 										}
 										if(!add){
-											System.out.println("Este codigo nÃ£o pertence a um Livro");
+											System.out.println("Este codigo não pertence a um Livro");
 										}
 									}
 								}			
@@ -1010,7 +1010,7 @@ public class SistemaBiblioteca {
 											}
 										}
 										if(!add){
-											System.out.println("Este codigo nÃ£o pertence a uma apostila");
+											System.out.println("Este codigo não pertence a uma apostila");
 										}
 									}
 								}
@@ -1134,7 +1134,7 @@ public class SistemaBiblioteca {
 									if(!existirCPF){
 										System.out.println("Digite o nome do Usuario");
 										String nomeUser = s.nextLine();
-										System.out.println("Digite o endereÃ§o do Usuario");
+										System.out.println("Digite o endereço do Usuario");
 										String endUser = s.nextLine();
 									
 										biblioteca.cadastroUsuario(codUser, nomeUser, endUser, cpfUser);
@@ -1205,7 +1205,7 @@ public class SistemaBiblioteca {
 		//////////////////////////// OPÃ‡ÃƒO INVALIDA ///////////////////////////////////////////////				
 					
 					default:
-						System.out.println("NÃ£o existe essa OpÃ§Ã£o");
+						System.out.println("Não existe essa Opção");
 						break;
 					}
 					
@@ -1214,7 +1214,7 @@ public class SistemaBiblioteca {
 				}catch(NumberFormatException exception){
 					System.out.println("Digite um numero");
 				}catch(IllegalArgumentException exception){
-					System.out.println("CPF	deve conter	11	dÃ­gitos");
+					System.out.println("CPF	deve conter	11	digitos");
 				}
 				
 			}while(executar==true);
